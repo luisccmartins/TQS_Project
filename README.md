@@ -2,13 +2,13 @@
 
 ### Membros
 
-Bernardo Leandro - 98652 - QA Engineer\n
+Bernardo Leandro - 98652 - QA Engineer
 
-Luís Martins- 98521 - Product Owner\n
+Luís Martins- 98521 - Product Owner
 
-Pedro Jorge - 98418 - DevOps Master\n
+Pedro Jorge - 98418 - DevOps Master
 
-Alexandre Pinto - 98401 - Team Coordinator\n
+Alexandre Pinto - 98401 - Team Coordinator
 
 ### Product Concept
 
