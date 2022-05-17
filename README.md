@@ -18,6 +18,10 @@ Aliado às adversidades encontradas nos últimos anos, em que a ida a farmácias
 
 Os estafetas registados no nosso serviço podem definir os seu estado atual, isto é, se estao disponíveis ou ocupados, no caso da primeira eles serão selecionados para fazer a entrega dos fármacos.
 
+### Chat channel
+
+Iremos utilizar a aba Projects no nosso repositório no GitHub, para tal foi criado um projeto denominado DrugDrop, onde serão atualizadas tarefas e o progresso deste projeto.
+
 
 
 
