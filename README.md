@@ -26,6 +26,7 @@ Iremos utilizar a aba Projects no nosso repositório no GitHub, para tal foi cri
 
 https://docs.google.com/document/d/1QK5BydUfwHOVZ0YrPGqaPdhQ0xrD8_QLNPm65nVHtcI/edit?usp=sharing
 
+#### Relatório QA Manual Link
 
-
+https://docs.google.com/document/d/1nFuBaeXxZPJz6BCD6hr_VScn5xOaMGh6EQJpUFBJWuI/edit?usp=sharing
 
