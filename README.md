@@ -32,4 +32,4 @@ https://docs.google.com/document/d/1nFuBaeXxZPJz6BCD6hr_VScn5xOaMGh6EQJpUFBJWuI/
 
 #### Link do Template para website
 
-https://mui.com/store/items/minimal-dashboard-free/
+https://github.com/BootstrapDash/StarAdmin-Free-Bootstrap-Admin-Template.git
