@@ -20,7 +20,11 @@ Os estafetas registados no nosso serviço podem definir os seu estado atual, ist
 
 ### Chat channel
 
-Iremos utilizar a aba Projects no nosso repositório no GitHub, para tal foi criado um projeto denominado DrugDrop, onde serão atualizadas tarefas e o progresso deste projeto.
+No que toca ao canal de comunicação do grupo iremos usar o Discord. 
+Iremos utilizar o Jira como o nosso sistema de 'backlog management' onde serão atualizadas tarefas e o progresso deste projeto.
+
+#### Jira
+https://pedrosimao10.atlassian.net/jira/software/projects/DD/boards/1
 
 #### Relatório Product Specification Link
 
@@ -32,4 +36,4 @@ https://docs.google.com/document/d/1nFuBaeXxZPJz6BCD6hr_VScn5xOaMGh6EQJpUFBJWuI/
 
 #### Link do Template para website
 
-https://github.com/BootstrapDash/StarAdmin-Free-Bootstrap-Admin-Template.git
+https://mui.com/store/items/minimal-dashboard-free/
