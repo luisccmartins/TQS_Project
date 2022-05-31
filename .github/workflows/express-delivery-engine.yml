@@ -1,6 +1,6 @@
 name: Express deliveries engine CI/CD Pipeline
 
-on:
+on: #quando é executado
    push:
     branches: [ main ]
   pull_request:
