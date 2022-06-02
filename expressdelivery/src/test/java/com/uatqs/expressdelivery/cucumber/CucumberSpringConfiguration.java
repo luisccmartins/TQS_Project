@@ -1,4 +1,4 @@
-package com.uatqs.expressdelivery.Cucumber;
+package com.uatqs.expressdelivery.cucumber;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;

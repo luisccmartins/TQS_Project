@@ -1,4 +1,4 @@
-package com.uatqs.expressdelivery.Cucumber;
+package com.uatqs.expressdelivery.cucumber;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
