@@ -11,8 +11,8 @@ public class RiderTest {
 
     @BeforeEach
     public void setUp(){
-        rider1 = new Rider("Pedro", "Porro", 960970980, "pedroporro@expressdelivery.com", true);
-        rider2 = new Rider("João", "Félix", 960970910, "feliz@expressdelivery.com", false);
+        rider1 = new Rider("Pedro Porro", 960970980, "pedroporro@expressdelivery.com", true);
+        rider2 = new Rider("João Félix", 960970910, "feliz@expressdelivery.com", false);
     }
 
     @Test
