@@ -1,8 +1,11 @@
 package com.uatqs.expressdelivery.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Store")
 public class Store {
     
     @Id
@@ -12,14 +15,24 @@ public class Store {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "address")
+    @OneToOne
     private Address address;
+
+    @OneToMany(mappedBy = "store")
+    private Set<Order> orders;
 
     public Store(int id, String name, Address address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
+
+    
+
+    public Store() {
+    }
+
+
 
     public int getId() {
         return id;

@@ -2,9 +2,18 @@ package com.uatqs.expressdelivery.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Administrator")
 public class Admin {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     @Column(name = "name")
     private String name;
@@ -20,6 +29,12 @@ public class Admin {
         this.email = email;
         this.password = password;
     }
+
+    
+    public Admin() {
+    }
+
+
     public String getName() {
         return name;
     }

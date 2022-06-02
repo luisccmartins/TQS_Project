@@ -7,8 +7,12 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "Rider")
 public class Rider {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     @Column(name = "first_name")
     private String first_name;
@@ -50,6 +54,11 @@ public class Rider {
         this.available = available;
         this.ratings = ratings;
         this.orders = orders;
+    }
+
+    
+
+    public Rider() {
     }
 
     public String getFirst_name() {

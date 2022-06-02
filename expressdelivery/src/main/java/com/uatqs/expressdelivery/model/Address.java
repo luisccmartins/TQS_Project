@@ -3,8 +3,12 @@ package com.uatqs.expressdelivery.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Address")
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String street;
     private String postalCode;
     private String city;
@@ -23,6 +27,10 @@ public class Address {
         this.country = country;
         this.store = store;
         this.order = order;
+    }
+
+
+    public Address() {
     }
 
     public String getStreet() {

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "Orders")
 public class Order {
 
     @Id
@@ -17,13 +18,11 @@ public class Order {
     private OrderState state;
 
     @ManyToOne
-    @Column(name = "rider")
     private Rider rider;
 
-    @Column(name = "store")
+    @ManyToOne
     private Store store;
 
-    @Column(name = "address")
     @OneToOne
     private Address address;
 
@@ -47,6 +46,13 @@ public class Order {
         this.description = description;
         this.client_phone_number = client_phone_number;
     }
+
+    
+
+    public Order() {
+    }
+
+
 
     public int getId() {
         return id;
