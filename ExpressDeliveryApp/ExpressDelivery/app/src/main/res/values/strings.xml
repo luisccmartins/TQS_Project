@@ -4,6 +4,7 @@
     <string name="delivered">Delivered</string>
     <string name="stats">Stats</string>
     <string name="back">Back</string>
+    <string name="finished">Finished</string>
 
     <!-- Home Fragment -->
     <string name="newOrders">New Orders</string>

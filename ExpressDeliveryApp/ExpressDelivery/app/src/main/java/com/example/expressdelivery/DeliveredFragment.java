@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link DeliveredFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class DeliveredFragment extends Fragment {
@@ -41,7 +41,7 @@ public class DeliveredFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment DeliveredFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static DeliveredFragment newInstance(String param1, String param2) {
@@ -87,7 +87,7 @@ public class DeliveredFragment extends Fragment {
         listener = new MyAdapterDelivered.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(),NewOrderActivity.class);
+                Intent intent = new Intent(getContext(),DeliveredActivity.class);
                 startActivity(intent);
             }
         };

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpressDelivery">
         <activity
+            android:name=".DeliveredActivity"
+            android:exported="false" />
+        <activity
             android:name=".FinishOrderActivity"
             android:exported="false" />
         <activity
