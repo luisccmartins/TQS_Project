@@ -11,5 +11,5 @@ import com.uatqs.expressdelivery.model.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
     List<Admin> findByName(String name);
-    Optional<Admin> findByEmail(String email);
+    Admin findByEmail(String email);
 }
