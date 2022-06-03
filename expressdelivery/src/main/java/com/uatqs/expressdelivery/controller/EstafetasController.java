@@ -1,5 +1,6 @@
-package main.java.com.uatqs.expressdelivery.controller;
+package com.uatqs.expressdelivery.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

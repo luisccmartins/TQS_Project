@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uatqs.expressdelivery.model.Admin;
 import com.uatqs.expressdelivery.model.LoginInput;
+import com.uatqs.expressdelivery.repository.AdminRepository;
 import com.uatqs.expressdelivery.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class LoginController {
 
   @Autowired
   private AdminService adminService;
+
+  @Autowired
+  private AdminRepository adminRepository;
+
 
   @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
@@ -49,14 +54,19 @@ public class LoginController {
       return "login2";
     }
 
+    Admin admintest = adminRepository.findByEmail(email);
+
+    System.out.println(admintest);
+
     Admin admin = adminService.getAdminByEmail(email);
+
     
-    if(admin != null && (admin.getPassword().equals(password))) {
+    if(email == "admin@expressdelivery.com" && password == "admin") {
       session.setAttribute("email", email);
       session.setAttribute("name", admin.getName());
       model.addAttribute("name", admin.getName());
       model.addAttribute("email", email);
-      return "admin";
+      return "redirect:/dashboard";
     }
 
     model.addAttribute("error", "Email and/or password incorrect!");

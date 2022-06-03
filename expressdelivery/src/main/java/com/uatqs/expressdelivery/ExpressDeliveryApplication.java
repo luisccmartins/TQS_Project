@@ -12,12 +12,12 @@ import com.uatqs.expressdelivery.repository.AdminRepository;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ExpressDeliveryApplication {
 
+	@Autowired
+	private static AdminRepository adminRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ExpressDeliveryApplication.class, args);
 	}
-
-	@Autowired
-	private AdminRepository adminRepository;
 
 	public void run(String...args) throws Exception {
 		Admin admin = new Admin("Admin", "admin@expressdelivery.com", "admin");
