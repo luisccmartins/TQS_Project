@@ -167,66 +167,29 @@
                           <th>Nº Licença.</th>
                           <th>Na empresa desde</th>
                           <th>Estado</th>
+                          <th>Ratings</th>
                         </tr>
                       </thead>
                       <tbody>
                         <th:block th:each="Estafeta : ${RidersList}">
                           <div class="row">
                             <div class="col-sm">
-                              <span class="h4" th:text="${Estafeta.name}"></span>
+                              <span class="h6" th:text="${Estafeta.name}"></span>
                             </div>
                             <div class="col-sm">
-                              <span class="h4" th:text="${Estafeta.phone_number}"></span>
+                              <span class="h6" th:text="${Estafeta.phone_number}"></span>
                             </div>
                             <div class="col-sm">
-                              <span class="h4" th:text="${Estafeta.email}"></span>
+                              <span class="h6" th:text="${Estafeta.email}"></span>
                             </div>
                             <div class="col-sm">
-                              <span class="h4" th:text="${Estafeta.available}"></span>
+                              <span class="h6" th:text="${Estafeta.available}"></span>
+                            </div>
+                            <div class="col-sm">
+                              <span class="h6" th:text="${Estafeta.ratingsAverage}"></span>
                             </div>
                           </div>
                         </th:block>
-
-                        <!-- <tr>
-                          <td>Mário Jam</td>
-                          <td>53275531</td>
-                          <td>12 Maio 2017</td>
-                          <td>
-                            <label class="badge badge-danger">Ocupado</label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Poste Malone</td>
-                          <td>53275532</td>
-                          <td>15 Abril 2019</td>
-                          <td>
-                            <label class="badge badge-danger">Ocupado</label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Rui Costa</td>
-                          <td>53275533</td>
-                          <td>09 Maio 2009</td>
-                          <td>
-                            <label class="badge badge-danger">Ocupado</label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Jorge Jesus</td>
-                          <td>53275534</td>
-                          <td>26 Outubro 2001</td>
-                          <td>
-                            <label class="badge badge-success">Livre</label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Rogério Schmidite</td>
-                          <td>53275535</td>
-                          <td>25 Maio 2022</td>
-                          <td>
-                            <label class="badge badge-success">Livre</label>
-                          </td>
-                        </tr> -->
                       </tbody>
                     </table>
                   </div>

@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -28,7 +29,10 @@ public class Rider {
 
     @Column(name = "ratings")
     @ElementCollection
-    private List<Integer> ratings;
+    private List<Integer> ratings = new ArrayList<Integer>();
+
+    @Column(name = "ratingsAverage")
+    public Double ratingsAverage;
 
     @OneToMany(mappedBy = "rider")
     @JsonIgnore
@@ -39,6 +43,7 @@ public class Rider {
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
+        this.ratingsAverage = getAverageRating(ratings);
     }
 
     public Rider(String name, int phone_number, String email, boolean available,
@@ -49,14 +54,13 @@ public class Rider {
         this.available = available;
         this.ratings = ratings;
         this.orders = orders;
+        this.ratingsAverage = getAverageRating(ratings);
     }
 
     
 
     public Rider() {
     }
-
-    
 
     public int getId() {
         return id;
@@ -114,4 +118,21 @@ public class Rider {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    public Double getAverageRating(List<Integer> ratings){
+        double avgRating = 0;
+        if (ratings.size()==0){
+            return 0.0;
+        }
+        for (int i = 0; i < ratings.size(); i++){
+            avgRating += ratings.get(i);
+        }
+        avgRating = avgRating/ratings.size();
+        return avgRating;
+    }
+
+    public void setRatingsAverage(Double ratingsAverage) {
+        this.ratingsAverage = ratingsAverage;
+    }
+
 }
