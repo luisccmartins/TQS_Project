@@ -18,6 +18,13 @@ Aliado às adversidades encontradas nos últimos anos, em que a ida a farmácias
 
 Os estafetas registados no nosso serviço podem definir os seu estado atual, isto é, se estao disponíveis ou ocupados, no caso da primeira eles serão selecionados para fazer a entrega dos fármacos.
 
+
+### Como executar
+
+    cd TQSProject/expressdelivery
+
+    mvn spring-boot:run
+
 ### Chat channel
 
 No que toca ao canal de comunicação do grupo iremos usar o Discord. 
