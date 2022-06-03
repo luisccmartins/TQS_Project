@@ -13,13 +13,16 @@ public class Rider {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public int id = 0;
     
     @Column(name = "name")
     private String name;
 
     @Column(name = "phone_number")
     private int phone_number;
+
+    @Column(name = "age")
+    private int age;
 
     @Column(name = "email")
     private String email;
@@ -38,13 +41,15 @@ public class Rider {
     @JsonIgnore
     private List<Order> orders;
     
-    public Rider(String name, int phone_number, String email, boolean available) {
+    public Rider(String name, int age, int phone_number, String email, boolean available) {
+        this.age = age;
         this.name = name;
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
         this.ratingsAverage = getAverageRating(ratings);
     }
+
 
     public Rider(String name, int phone_number, String email, boolean available,
             List<Integer> ratings, List<Order> orders) {
@@ -63,7 +68,7 @@ public class Rider {
     }
 
     public int getId() {
-        return id;
+        return id++;
     }
 
     public void setId(int id) {
@@ -76,6 +81,14 @@ public class Rider {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getPhone_number() {

@@ -29,10 +29,10 @@ public class DashboardController {
     public String getDashboard( Model model) {
       HttpSession session = httpSessionFactory.getObject();
 
-      HashMap<String, Integer> hm = new HashMap<String, Integer>(); 
-      Rider r1 = new Rider("Alexandre Canoa", 915264812 , "XelaOFficial@reydacanoa.vz", false);
-      Rider r2 = new Rider("Luis Martins", 987254122, "luisccmartins@ua.pt", false);
-      Rider r3 = new Rider("Pedro Ministro", 234152637, "pedroMinistro@ua.pt", true);
+      HashMap<Integer, String> hm = new HashMap<Integer, String>(); 
+      Rider r1 = new Rider("Alexandre Canoa", 21, 915264812 , "XelaOFficial@reydacanoa.vz", false);
+      Rider r2 = new Rider("Luis Martins", 27, 987254122, "luisccmartins@ua.pt", false);
+      Rider r3 = new Rider("Pedro Ministro", 36, 234152637, "pedroMinistro@ua.pt", true);
       List<Rider> estafetas = new ArrayList<Rider>();
       estafetas.add(r1);
       estafetas.add(r2);
@@ -49,15 +49,22 @@ public class DashboardController {
       // }
       
       model.addAttribute("RidersList", estafetas);
-
-
-
-      Map<String, Integer> graphData = new TreeMap<>();
-      for(String i : hm.keySet()) {
-        graphData.put(i, hm.get(i));
-      }
       
-      model.addAttribute("chartData", graphData);
+      // for(Rider r : estafetas){
+      //   int i = 0;
+      //   hm.put(i, r.getName());
+      //   i++;
+      // }
+
+      // model.addAttribute("RidersID", hm);
+
+
+      // Map<String, Integer> graphData = new TreeMap<>();
+      // for(String i : hm.keySet()) {
+      //   graphData.put(i, hm.get(i));
+      // }
+      
+      //model.addAttribute("chartData", graphData);
       return "EstafetasPerformance";
     }
 

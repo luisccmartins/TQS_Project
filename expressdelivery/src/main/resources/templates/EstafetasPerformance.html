@@ -143,11 +143,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="EstafetasPerformance.html">
                     <i class="menu-icon typcn typcn-document-text"></i>
-                    <span class="menu-title">Performance dos Estafetas</span>
+                    <span class="menu-title">Riders Performance</span>
                 </a>
                 <a class="nav-link" href="Estatisticas.html">
                     <i class="menu-icon typcn typcn-document-text"></i>
-                    <span class="menu-title">Estatísticas</span>
+                    <span class="menu-title">Statistics</span>
                 </a>
             </li>
           </ul>
@@ -156,28 +156,28 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <span class="h4">Estafetas</span>
+                    <span class="h4">Riders</span>
                     <br>
                     <table class="table">
                       <thead>
                         <div class="row">
-                          <div class="col-sm-2">
-                            <span class="h7"><b>Name</b></span>
+                          <div class="col-sm-1">
+                            <span class="h7"><b>ID</b></span>
                           </div>
                           <div class="col-sm-2">
-                            <span class="h7"><b>Phone Number</b></span>
+                            <span class="h7"><b>Name</b></span>
                           </div>
                           <div class="col-sm-4">
                             <span class="h7"><b>Email</b></span>
                           </div>
-                          <div class="col-sm-2">
-                            <span class="h7"><b>Available</b></span>
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Phone Number</b></span>
                           </div>
                           <div class="col-sm-2">
-                            <span class="h7"><b>Rating</b></span>
+                            <span class="h7"><b>Age</b></span>
                           </div>
                         </div>
                       </thead>
@@ -185,20 +185,77 @@
                         <th:block th:each="Estafeta : ${RidersList}">
                           <hr>
                           <div class="row">
-                            <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.name}"></span>
+                            <div class="col-sm-1">
+                              <span class="h8" th:text="${Estafeta.id}"></span>
                             </div>
                             <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.phone_number}"></span>
+                              <span class="h8" th:text="${Estafeta.name}"></span>
                             </div>
                             <div class="col-sm-4">
                               <span class="h8" th:text="${Estafeta.email}"></span>
                             </div>
-                            <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.available}"></span>
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${Estafeta.phone_number}"></span>
                             </div>
                             <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>
+                              <span class="h8" th:text="${Estafeta.age}"></span>
+                            </div>
+                          </div>
+                        </th:block>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <span class="h4">Performance</span>
+                    <br>
+                    <table class="table">
+                      <thead>
+                        <div class="row">
+                          <div class="col-sm-1">
+                            <span class="h7"><b>ID</b></span>
+                          </div>
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Name</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Ratings</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Distance</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Balance</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Available</b></span>
+                          </div>
+                        </div>
+                      </thead>
+                      <tbody>
+                        <th:block th:each="Estafeta : ${RidersList}">
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-1">
+                              <span class="h8" th:text="${Estafeta.id}"></span>
+                            </div>
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${Estafeta.name}"></span>
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span> 
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>         <!-- criar algo que indique distâncias -->
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>         <!-- criar algo que indique saldo -->
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${Estafeta.available}"></span>
                             </div>
                           </div>
                         </th:block>
