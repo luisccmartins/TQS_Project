@@ -1,5 +1,7 @@
 package com.uatqs.expressdelivery.model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +25,9 @@ public class Admin {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "ridersList")
+    public static ArrayList<Rider> ridersList;
 
     public Admin(String name, String email, String password) {
         this.name = name;
@@ -59,5 +64,9 @@ public class Admin {
         this.password = password;
     }
 
+  
+    public static ArrayList<Rider> getRidersList() {
+      return ridersList;
+  }
     
 }

@@ -167,7 +167,7 @@
                           <div class="col-sm-1">
                             <span class="h7"><b>ID</b></span>
                           </div>
-                          <div class="col-sm-2">
+                          <div class="col-sm-3">
                             <span class="h7"><b>Name</b></span>
                           </div>
                           <div class="col-sm-4">
@@ -176,7 +176,7 @@
                           <div class="col-sm-3">
                             <span class="h7"><b>Phone Number</b></span>
                           </div>
-                          <div class="col-sm-2">
+                          <div class="col-sm-1">
                             <span class="h7"><b>Age</b></span>
                           </div>
                         </div>
@@ -188,7 +188,7 @@
                             <div class="col-sm-1">
                               <span class="h8" th:text="${Estafeta.id}"></span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                               <span class="h8" th:text="${Estafeta.name}"></span>
                             </div>
                             <div class="col-sm-4">
@@ -197,12 +197,15 @@
                             <div class="col-sm-3">
                               <span class="h8" th:text="${Estafeta.phone_number}"></span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                               <span class="h8" th:text="${Estafeta.age}"></span>
                             </div>
                           </div>
                         </th:block>
                       </tbody>
+                      <form action="addRider" method="get">
+                        <button type="submit">Add Rider</button>
+                      </form>
                     </table>
                   </div>
                 </div>
