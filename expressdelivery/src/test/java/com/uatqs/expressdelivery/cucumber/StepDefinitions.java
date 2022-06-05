@@ -26,21 +26,21 @@ public class StepDefinitions {
         // Write code here that turns the phrase above into concrete actions
     }
     @When("I set the Email as {string}")
-    public void i_set_the_email_as(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    public void i_set_the_email_as(String email) {
+        webDriver.findElement(By.xpath(".//input[@name='email']")).sendKeys(email);
     }
     @When("I set the Password as {string}")
-    public void i_set_the_password_as(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    public void i_set_the_password_as(String password) {
+        webDriver.findElement(By.xpath(".//input[@name='password']")).sendKeys(password);
     }
     @When("I click on the {string} button")
-    public void i_click_on_the_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    public void i_click_on_the_button(String login) {
+        webDriver.findElement(By.cssSelector(".modal form .container .btn-search")).click();
     }
 
     @When("I click on the {string} button on the side bar")
-    public void i_click_on_the_button_on_the_side_bar(String string) {
-        // Write code here that turns the phrase above into concrete actions
+    public void i_click_on_the_button_on_the_side_bar(String dashboard) {
+        webDriver.findElement(By.cssSelector(".s01 form .inner-form .input-field.third-wrap .btn-search")).click();
     }
 
     @Then("I should see the message {string}")
@@ -49,7 +49,7 @@ public class StepDefinitions {
     }
 
     @Then("I should see a table with the names of the riders, such as {string}")
-    public void i_should_see_a_table_with_the_names_of_the_riders_such_as(String string) {
+    public void i_should_see_a_table_with_the_names_of_the_riders_such_as(String rider) {
         // Write code here that turns the phrase above into concrete actions
     }
 

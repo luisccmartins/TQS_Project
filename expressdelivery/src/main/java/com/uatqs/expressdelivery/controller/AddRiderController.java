@@ -7,17 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.uatqs.expressdelivery.model.Admin;
 import com.uatqs.expressdelivery.model.Rider;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import javax.servlet.http.HttpSession;  
 
 @Controller
@@ -31,21 +22,25 @@ public class AddRiderController {
     return new Rider();
   }
 
-  @GetMapping("addRider")
+  @GetMapping("/addRider")
+  public String getAddRiderPage(Model model){
+    return "AddRider";
+  }
+
+  @PostMapping("/addRider")
   public String addNewRider(@ModelAttribute Rider inputRider, Model model) {
-    HttpSession session = httpSessionFactory.getObject();
     String email = inputRider.getEmail();
     String name = inputRider.getName();
     String age = String.valueOf(inputRider.getAge());
-    String phoneNumber = String.valueOf(inputRider.getPhone_number());
+    Integer phoneNumber = Integer.valueOf(inputRider.getPhone_number());
 
-    if (email == "" || name == "" || age == "" || phoneNumber == "") {
+    if (email == "" || name == "" || age == "" || phoneNumber == null) {
       model.addAttribute("error", "All fields must be filled!");
-      return "addRider";
+      return "AddRider";
     }
     else{
-      boolean available = true;
-      Rider r1 = new Rider(name, Integer.parseInt(age), Integer.parseInt(phoneNumber), email, available);
+      //boolean available = true;
+      //Rider r1 = new Rider(name, Integer.parseInt(age), Integer.parseInt(phoneNumber), email, available);
       return "redirect:/dashboard";
     }
   }

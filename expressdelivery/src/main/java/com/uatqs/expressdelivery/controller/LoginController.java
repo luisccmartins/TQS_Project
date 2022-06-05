@@ -27,10 +27,6 @@ public class LoginController {
   private AdminService adminService;
 
   @Autowired
-  private AdminRepository adminRepository;
-
-
-  @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
 
   @ModelAttribute("LoginInput")
@@ -54,14 +50,9 @@ public class LoginController {
       return "login2";
     }
 
-    Admin admintest = adminRepository.findByEmail(email);
-
-    System.out.println(admintest);
-
     Admin admin = adminService.getAdminByEmail(email);
 
-    
-    if(email == "admin@expressdelivery.com" && password == "admin") {
+    if(admin != null && (admin.getPassword().equals(password))) {
       session.setAttribute("email", email);
       session.setAttribute("name", admin.getName());
       model.addAttribute("name", admin.getName());
