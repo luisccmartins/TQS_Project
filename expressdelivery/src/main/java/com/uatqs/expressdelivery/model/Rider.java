@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Rider {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id = 0;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     
     @Column(name = "name")
     private String name;
@@ -37,7 +37,7 @@ public class Rider {
     @Column(name = "ratingsAverage")
     public Double ratingsAverage;
 
-    @OneToMany(mappedBy = "rider")
+    @OneToMany(mappedBy = "rider",cascade = CascadeType.MERGE )
     @JsonIgnore
     private List<Order> orders;
     
@@ -68,7 +68,7 @@ public class Rider {
     }
 
     public int getId() {
-        return id++;
+        return id;
     }
 
     public void setId(int id) {

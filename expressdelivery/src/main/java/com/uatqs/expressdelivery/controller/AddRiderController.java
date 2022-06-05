@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.uatqs.expressdelivery.model.Rider;
+import com.uatqs.expressdelivery.repository.RiderRepository;
+
 import javax.servlet.http.HttpSession;  
 
 @Controller
 public class AddRiderController {
 
-@Autowired
+  @Autowired
+  private RiderRepository riderRepository;
+
+  @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
 
   @ModelAttribute("inputRider")
@@ -29,18 +34,22 @@ public class AddRiderController {
 
   @PostMapping("/addRider")
   public String addNewRider(@ModelAttribute Rider inputRider, Model model) {
+
     String email = inputRider.getEmail();
     String name = inputRider.getName();
-    String age = String.valueOf(inputRider.getAge());
-    Integer phoneNumber = Integer.valueOf(inputRider.getPhone_number());
+    Integer age = Integer.valueOf(inputRider.getAge());
+    Integer phoneNumber = inputRider.getPhone_number();
+    boolean available = false;
 
-    if (email == "" || name == "" || age == "" || phoneNumber == null) {
+    Rider r = new Rider(name, age, phoneNumber, email, available);
+
+
+    if (email == "" || name == "" || age == null || phoneNumber == null) {
       model.addAttribute("error", "All fields must be filled!");
       return "AddRider";
     }
     else{
-      //boolean available = true;
-      //Rider r1 = new Rider(name, Integer.parseInt(age), Integer.parseInt(phoneNumber), email, available);
+      riderRepository.save(r);
       return "redirect:/dashboard";
     }
   }

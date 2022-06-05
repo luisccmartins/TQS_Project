@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uatqs.expressdelivery.model.Admin;
 import com.uatqs.expressdelivery.model.Rider;
+import com.uatqs.expressdelivery.repository.RiderRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +28,15 @@ public class DashboardController {
 @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
 
+  @Autowired
+  private RiderRepository riderRepository;
+
 
 
   @GetMapping("/dashboard")
     public String getDashboard( Model model) {
       HttpSession session = httpSessionFactory.getObject();
-
+      /* 
       HashMap<Integer, String> hm = new HashMap<Integer, String>(); 
       Rider r1 = new Rider("Alexandre Canoa", 21, 915264812 , "XelaOFficial@reydacanoa.vz", false);
       Rider r2 = new Rider("Luis Martins", 27, 987254122, "luisccmartins@ua.pt", false);
@@ -51,7 +55,9 @@ public class DashboardController {
       //     hm.put(r.getEstafeta().getNumber(), 1);
       //   }
       // }
-      
+      */
+      List<Rider> estafetas = new ArrayList<Rider>();
+      estafetas = riderRepository.findAll();
       model.addAttribute("RidersList", estafetas);
       
       // for(Rider r : estafetas){
