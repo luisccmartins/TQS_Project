@@ -14,14 +14,6 @@
         android:layout_marginBottom="50dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/back"
-            app:icon="?attr/actionModeCloseDrawable" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -30,7 +22,6 @@
             android:text="@string/orderDetails"
             android:textAlignment="center"
             android:textSize="30sp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -45,12 +36,16 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/id" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -66,12 +61,16 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/description" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -87,12 +86,16 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/destiny" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -108,12 +111,16 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/contact" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -129,6 +136,8 @@
             android:id="@+id/button11"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_weight="1"
             android:backgroundTint="#4CAF50"
             android:text="@string/accept" />
@@ -137,6 +146,8 @@
             android:id="@+id/button12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_weight="1"
             android:backgroundTint="#F44336"
             android:text="@string/reject" />

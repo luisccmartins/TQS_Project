@@ -14,14 +14,6 @@
         android:layout_marginBottom="50dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button20"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/back"
-            app:icon="?attr/actionModeCloseDrawable" />
-
         <TextView
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
@@ -45,12 +37,16 @@
             android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/id" />
 
         <TextView
             android:id="@+id/textView32"
             android:layout_width="match_parent"
             android:layout_height="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -66,12 +62,16 @@
             android:id="@+id/textView33"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/description" />
 
         <TextView
             android:id="@+id/textView34"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -87,12 +87,16 @@
             android:id="@+id/textView35"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/destiny" />
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
@@ -108,12 +112,16 @@
             android:id="@+id/textView37"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/contact" />
 
         <TextView
             android:id="@+id/textView38"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:text="TextView" />
     </LinearLayout>
 
