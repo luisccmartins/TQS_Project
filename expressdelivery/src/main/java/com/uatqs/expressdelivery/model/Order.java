@@ -11,13 +11,13 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @Column(name = "state")
     private OrderState state;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Rider rider;
 
     @ManyToOne

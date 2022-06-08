@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Rider {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @Column(name = "name")
@@ -19,6 +20,9 @@ public class Rider {
 
     @Column(name = "phone_number")
     private int phone_number;
+
+    @Column(name = "age")
+    private int age;
 
     @Column(name = "email")
     private String email;
@@ -28,18 +32,24 @@ public class Rider {
 
     @Column(name = "ratings")
     @ElementCollection
-    private List<Integer> ratings;
+    private List<Integer> ratings = new ArrayList<Integer>();
 
-    @OneToMany(mappedBy = "rider")
+    @Column(name = "ratingsAverage")
+    public Double ratingsAverage;
+
+    @OneToMany(mappedBy = "rider",cascade = CascadeType.MERGE )
     @JsonIgnore
     private List<Order> orders;
     
-    public Rider(String name, int phone_number, String email, boolean available) {
+    public Rider(String name, int age, int phone_number, String email, boolean available) {
+        this.age = age;
         this.name = name;
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
+        this.ratingsAverage = getAverageRating(ratings);
     }
+
 
     public Rider(String name, int phone_number, String email, boolean available,
             List<Integer> ratings, List<Order> orders) {
@@ -49,14 +59,13 @@ public class Rider {
         this.available = available;
         this.ratings = ratings;
         this.orders = orders;
+        this.ratingsAverage = getAverageRating(ratings);
     }
 
     
 
     public Rider() {
     }
-
-    
 
     public int getId() {
         return id;
@@ -72,6 +81,14 @@ public class Rider {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getPhone_number() {
@@ -114,4 +131,21 @@ public class Rider {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    public Double getAverageRating(List<Integer> ratings){
+        double avgRating = 0;
+        if (ratings.size()==0){
+            return 0.0;
+        }
+        for (int i = 0; i < ratings.size(); i++){
+            avgRating += ratings.get(i);
+        }
+        avgRating = avgRating/ratings.size();
+        return avgRating;
+    }
+
+    public void setRatingsAverage(Double ratingsAverage) {
+        this.ratingsAverage = ratingsAverage;
+    }
+
 }

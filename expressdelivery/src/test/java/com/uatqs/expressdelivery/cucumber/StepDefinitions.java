@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import io.cucumber.java.After;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +25,7 @@ public class StepDefinitions {
     }
     @When("I set the Email as {string}")
     public void i_set_the_email_as(String email) {
-        webDriver.findElement(By.id("email")).sendKeys(email);
+
     }
     @When("I set the Password as {string}")
     public void i_set_the_password_as(String password) {

@@ -15,11 +15,11 @@
 	<description>Express Delivery</description>
 	<properties>
 		<java.version>11</java.version>
-		<testcontainers.version>1.15.3</testcontainers.version>
+		<testcontainers.version>1.17.2</testcontainers.version>
 		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 		<jacoco.version>0.8.6</jacoco.version>
-		<selenium.version>3.141.59</selenium.version>
-		<cucumber.version>7.2.3</cucumber.version>
+		<selenium.version>3.141.5</selenium.version>
+		<cucumber.version>7.3.3</cucumber.version>
 		<webdrivermanager.version>5.1.0</webdrivermanager.version>
 		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
@@ -44,6 +44,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 
 		<dependency>
@@ -153,6 +158,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>htmlunit-driver</artifactId>
+			<version>3.61.0</version>
+		</dependency>
+
+		<dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
             <scope>test</scope>
@@ -170,6 +181,11 @@
 			<artifactId>mysql</artifactId>
 			<version>${testcontainers.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 	</dependencies>
