@@ -2,7 +2,6 @@ package com.uatqs.expressdelivery.cucumber;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import io.cucumber.java.After;
@@ -18,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class StepDefinitions {
 
     private WebDriver webDriver;
-    
+
     @When("I navigate to {string}")
     public void i_navigate_to(String url) {
         webDriver = new HtmlUnitDriver();
@@ -26,7 +25,7 @@ public class StepDefinitions {
     }
     @When("I set the Email as {string}")
     public void i_set_the_email_as(String email) {
-        webDriver.findElement(By.xpath("/html/body/div/form/div[2]/input[1]")).sendKeys(email);
+
     }
     @When("I set the Password as {string}")
     public void i_set_the_password_as(String password) {
