@@ -14,12 +14,12 @@
             </div>
             <div class="container">
                 <label class="label"><b>Email</b></label>
-                <input th:field="*{email}" type="text" class="form-control" placeholder="Email">
+                <input th:field="*{email}" type="text" class="form-control" id="email" placeholder="Email">
             
                 <label class="label"><b>Password</b></label>
-                <input th:field="*{password}" type="password" class="form-control" placeholder="Password">
+                <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="Password">
             
-                <button type="submit">Login</button>
+                <button class="btn-search" id="loginSubmit" type="submit">Login</button>
             </div>
         </form>
     </div>

@@ -31,50 +31,11 @@ public class DashboardController {
   @Autowired
   private RiderRepository riderRepository;
 
-
-
   @GetMapping("/dashboard")
     public String getDashboard( Model model) {
-      HttpSession session = httpSessionFactory.getObject();
-      /* 
-      HashMap<Integer, String> hm = new HashMap<Integer, String>(); 
-      Rider r1 = new Rider("Alexandre Canoa", 21, 915264812 , "XelaOFficial@reydacanoa.vz", false);
-      Rider r2 = new Rider("Luis Martins", 27, 987254122, "luisccmartins@ua.pt", false);
-      Rider r3 = new Rider("Pedro Ministro", 36, 234152637, "pedroMinistro@ua.pt", true);
-      List<Rider> estafetas = new ArrayList<Rider>();
-      estafetas.add(r1);
-      estafetas.add(r2);
-      estafetas.add(r3);
-      //EstafetasController.findAllEstafetas();//estafetas controller tem de ser criado
-      // for(Rider r : estafetas) {
-      //   if(hm.containsKey(r.getEstafeta().getNumber())){
-      //     hm.put(r.getEstafeta().getNumber(), hm.get(r.getEstafeta().getNumber()) + 1);
-
-      //   }
-      //   else{
-      //     hm.put(r.getEstafeta().getNumber(), 1);
-      //   }
-      // }
-      */
       List<Rider> estafetas = new ArrayList<Rider>();
       estafetas = riderRepository.findAll();
       model.addAttribute("RidersList", estafetas);
-      
-      // for(Rider r : estafetas){
-      //   int i = 0;
-      //   hm.put(i, r.getName());
-      //   i++;
-      // }
-
-      // model.addAttribute("RidersID", hm);
-
-
-      // Map<String, Integer> graphData = new TreeMap<>();
-      // for(String i : hm.keySet()) {
-      //   graphData.put(i, hm.get(i));
-      // }
-      
-      //model.addAttribute("chartData", graphData);
       return "EstafetasPerformance";
     }
 

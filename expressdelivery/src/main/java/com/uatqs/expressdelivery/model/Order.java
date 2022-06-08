@@ -3,7 +3,6 @@ package com.uatqs.expressdelivery.model;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 import org.hibernate.annotations.CreationTimestamp;
 
