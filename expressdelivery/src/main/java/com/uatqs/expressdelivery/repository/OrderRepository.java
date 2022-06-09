@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.uatqs.expressdelivery.model.Order;
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findById(int ind);
-    Optional<Order> findByState(OrderState state);
+    List<Order> findByState(OrderState state);
     Optional<Order> findByRider(Rider tider);
 }
