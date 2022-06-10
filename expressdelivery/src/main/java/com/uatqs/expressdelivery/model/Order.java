@@ -15,14 +15,17 @@ public class Order {
     private int id;
     
     @Column(name = "state")
-    private OrderState state;
+    private String state;
 
+    @JoinColumn(name = "rider")
     @ManyToOne(cascade = CascadeType.MERGE)
     private Rider rider;
 
+    @JoinColumn(name = "store")
     @ManyToOne
     private Store store;
 
+    @JoinColumn(name = "address")
     @OneToOne
     private Address address;
 
@@ -35,8 +38,11 @@ public class Order {
     @Column(name = "client_phone_number")
     private int client_phone_number;
 
-    public Order(int id, OrderState state, Rider rider, Store store, Address address, Date date, String description,
-            int client_phone_number) {
+    @Column(name = "rating")
+    private int rating;
+
+    public Order(int id, String state, Rider rider, Store store, Address address, Date date, String description,
+            int client_phone_number, int rating) {
         this.id = id;
         this.state = state;
         this.rider = rider;
@@ -45,6 +51,7 @@ public class Order {
         this.date = date;
         this.description = description;
         this.client_phone_number = client_phone_number;
+        this.rating = rating;
     }
 
     
@@ -62,11 +69,11 @@ public class Order {
         this.id = id;
     }
 
-    public OrderState getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(OrderState state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -116,6 +123,18 @@ public class Order {
 
     public void setClient_phone_number(int client_phone_number) {
         this.client_phone_number = client_phone_number;
+    }
+
+
+
+    public int getRating() {
+        return rating;
+    }
+
+
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     

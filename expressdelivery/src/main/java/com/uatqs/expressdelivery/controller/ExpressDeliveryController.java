@@ -3,13 +3,12 @@ package com.uatqs.expressdelivery.controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.uatqs.expressdelivery.model.Admin;
 import com.uatqs.expressdelivery.model.LoginInput;
 import com.uatqs.expressdelivery.model.Order;
-import com.uatqs.expressdelivery.repository.AdminRepository;
 import com.uatqs.expressdelivery.service.AdminService;
 import com.uatqs.expressdelivery.service.ExpressDeliveryService;
 
@@ -123,7 +122,20 @@ public class ExpressDeliveryController {
   public String getDeliveries(Model model){
     List<Order> orders = service.getAllCompletedOrders();
     model.addAttribute("totalOrders", orders);
-    model.addAttribute("employeesNames", service.getRidersByOrder(orders));
-    return "Estatísticas";
+    model.addAttribute("riderName", service.getRidersByOrder(orders));
+    return "Estatisticas";
   }
+
+  @GetMapping("/profiles")
+  public String getRiderProfiles(Model model){
+    List<Rider> riders = service.getAllRiders();
+    model.addAttribute("riders", riders);
+    return "RiderProfile";
+  }
+
+  @PostMapping("/deleteRider/{id}")
+    public String deleteRider(@PathVariable long id){
+      riderRepository.deleteById(id);
+      return "redirect:/profiles";
+    }
 }

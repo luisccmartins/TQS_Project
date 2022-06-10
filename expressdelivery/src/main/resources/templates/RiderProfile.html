@@ -64,9 +64,9 @@
                     <span class="menu-title">Deliveries</span>
                 </a>
                 <a class="nav-link" th:href="@{/profiles}">
-                  <i class="menu-icon typcn typcn-document-text"></i>
-                  <span class="menu-title">Riders</span>
-              </a>
+                    <i class="menu-icon typcn typcn-document-text"></i>
+                    <span class="menu-title">Riders</span>
+                </a>
             </li>
           </ul>
         </nav>
@@ -74,58 +74,56 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">                
-              <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                    <span class="h4">Deliveries</span>
-                    <br>
-                    <table class="table">
-                      <thead>
-                        <div class="row">
-                          <div class="col-sm-1">
-                            <span class="h7"><b>ID</b></span>
-                          </div>
-                          <div class="col-sm-3">
-                            <span class="h7"><b>Description</b></span>
-                          </div>
-                          <div class="col-sm-3">
-                            <span class="h7"><b>Rider</b></span>
-                          </div>
-                          <div class="col-sm-1">
-                            <span class="h7"><b>Rating</b></span>
-                          </div>
-                          <div class="col-sm-3">
-                            <span class="h7"><b>Client Phone Number</b></span>
-                          </div>
-                        </div>
-                      </thead>
-                      <tbody>
-                        <th:block th:each="order : ${totalOrders}">
-                          <hr>
-                          <div class="row">
-                            <div class="col-sm-1">
-                              <span class="h8" th:text="${order.id}"></span>
-                            </div>
-                            <div class="col-sm-3">
-                              <span class="h8" th:text="${order.description}"></span>
-                            </div>
-                            <div class="col-sm-3">
-                              <span class="h8" th:text="${riderName.get(order.id)}"></span>
-                            </div>
-                            <div class="col-sm-1">
-                              <span class="h8" th:text="${order.rating}"></span>
-                            </div>
-                            <div class="col-sm-3">
-                              <span class="h8" th:text="${order.client_phone_number}"></span>
-                            </div>
-                          </div>
-                        </th:block>
-                      </tbody>
-                    </table>
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title ">My Riders</h4>
+                      <p class="card-category"> List of all Express Delivery Riders</p>
+                      <form action="#"  th:action="@{/addRider}" method="GET">
+                        <button class="float-right" type="submit">Add Rider</button>
+                      </form>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Phone Number
+                          </th>
+                          <th>
+                            Age
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                          <th>
+                            Ratings Average
+                          </th>
+                          </thead>
+                          <tbody th:each="rider : ${riders}">
+                          <tr>
+                            <td th:text="${rider.id}"></td>
+                            <td th:text="${rider.name}"></td>
+                            <td th:text="${rider.phone_number}"></td>
+                            <td th:text="${rider.age}"></td>
+                            <td th:text="${rider.email}"></td>
+                            <td th:text="${rider.ratingsAverage}"></td>
+                            <td>
+                              <form th:action="@{/deleteRider/{id}(id=${rider.id})}" th:object="${riders}" method="POST">
+                                <button class="float-right" type="submit">Delete</button>
+                              </form>
+                          </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <!-- content-wrapper ends -->

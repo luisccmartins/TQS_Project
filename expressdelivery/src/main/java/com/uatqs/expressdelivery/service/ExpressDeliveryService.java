@@ -9,11 +9,9 @@ import java.util.Map;
 
 import com.uatqs.expressdelivery.model.Admin;
 import com.uatqs.expressdelivery.model.Order;
-import com.uatqs.expressdelivery.model.OrderState;
 import com.uatqs.expressdelivery.model.Rider;
 import com.uatqs.expressdelivery.repository.AdminRepository;
 import com.uatqs.expressdelivery.repository.OrderRepository;
-import com.uatqs.expressdelivery.repository.OrderStateRepository;
 import com.uatqs.expressdelivery.repository.RiderRepository;
 
 @Service
@@ -28,8 +26,6 @@ public class ExpressDeliveryService {
     @Autowired
     private RiderRepository riderRepository;
 
-    @Autowired
-    private OrderStateRepository orderStateRepository;
 
     @Autowired
     public ExpressDeliveryService(AdminRepository adminRepository) {
@@ -43,15 +39,15 @@ public class ExpressDeliveryService {
     }
 
     public List<Order> getAllCreatedOrders() {
-        return orderRepository.findByState(OrderState.CREATED);
+        return orderRepository.findByState("CREATED"); 
     }
 
     public List<Order> getAllPickedUpOrders() {
-        return orderRepository.findByState(OrderState.PICKED_UP);
+        return orderRepository.findByState("PICKED UP"); 
     }
 
     public List<Order> getAllCompletedOrders() {
-        return orderRepository.findByState(OrderState.DELIVERED);
+        return orderRepository.findByState("COMPLETED");
     }
 
     public Map<Integer, String> getRidersByOrder(List<Order> orders){
@@ -64,4 +60,19 @@ public class ExpressDeliveryService {
         return ridersNames;
     }
 
+    public List<Rider> getAllRiders(){
+        return riderRepository.findAll();
+    }
+
+    public Double getAverageRatingsRiders(){
+        double ratings = 0.0;
+        List<Order> orders = orderRepository.findByState("COMPLETED");
+        for(Order order : orders){
+            ratings += order.getRating();
+        }
+        if(orders.size() > 0)
+            return ratings / orders.size();
+        else
+            return 0.0;
+    }
 }

@@ -13,7 +13,7 @@ public class Rider {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     
     @Column(name = "name")
     private String name;
@@ -47,7 +47,6 @@ public class Rider {
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
-        this.ratingsAverage = getAverageRating(ratings);
     }
 
 
@@ -59,7 +58,6 @@ public class Rider {
         this.available = available;
         this.ratings = ratings;
         this.orders = orders;
-        this.ratingsAverage = getAverageRating(ratings);
     }
 
     
@@ -67,11 +65,11 @@ public class Rider {
     public Rider() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -132,20 +130,10 @@ public class Rider {
         this.orders = orders;
     }
 
-    public Double getAverageRating(List<Integer> ratings){
-        double avgRating = 0;
-        if (ratings.size()==0){
-            return 0.0;
-        }
-        for (int i = 0; i < ratings.size(); i++){
-            avgRating += ratings.get(i);
-        }
-        avgRating = avgRating/ratings.size();
-        return avgRating;
-    }
 
     public void setRatingsAverage(Double ratingsAverage) {
         this.ratingsAverage = ratingsAverage;
     }
+
 
 }
