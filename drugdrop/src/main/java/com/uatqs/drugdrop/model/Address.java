@@ -14,6 +14,9 @@ public class Address {
     private String city;
     private String country;
 
+    @OneToOne
+    private User user;
+
     @OneToOne(mappedBy = "address")
     private Store store;
 

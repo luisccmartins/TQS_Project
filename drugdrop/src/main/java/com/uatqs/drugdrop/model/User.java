@@ -19,7 +19,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "address")
+    //@Column(name = "address")
+    @OneToOne
     private Address address;
 
     public User(String name, String email, String password, Address address){
