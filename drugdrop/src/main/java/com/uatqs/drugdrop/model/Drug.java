@@ -61,4 +61,8 @@ public class Drug {
         this.price = price;
     }
 
+    public String priceToString() { 
+        return this.price + "€";
+    }
+
 }

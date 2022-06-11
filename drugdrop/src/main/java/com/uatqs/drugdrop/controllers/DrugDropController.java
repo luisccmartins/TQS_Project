@@ -41,8 +41,8 @@ public class DrugDropController {
   @Autowired
   private DrugRepository drugRepository;
 
-  @Autowired
-  private ExpressDeliveryService service;
+  // @Autowired
+  // private ExpressDeliveryService service;
 
 
   @Autowired
@@ -61,7 +61,7 @@ public class DrugDropController {
 
   @GetMapping("/")
   public String getAskIdentifier(Model model) {
-    return "login2";
+    return "login";
   }
 
   @PostMapping("/")
@@ -72,7 +72,7 @@ public class DrugDropController {
 
     if (email == "" || password == "") {
       model.addAttribute("error", "All fields must be filled!");
-      return "login2";
+      return "login";
     }
 
     User user = userService.getUserByEmail(email);
@@ -86,7 +86,7 @@ public class DrugDropController {
     }
 
     model.addAttribute("error", "Email and/or password incorrect!");
-    return "login2";
+    return "login";
   }
 
 
@@ -124,11 +124,11 @@ public class DrugDropController {
     }
   }
 
-  @GetMapping("/deliveries")
-  public String getDeliveries(Model model){
-    List<Order> orders = service.getAllCompletedOrders();
-    model.addAttribute("totalOrders", orders);
-    model.addAttribute("employeesNames", service.getRidersByOrder(orders));
-    return "Estatísticas";
-  }
+  // @GetMapping("/deliveries")
+  // public String getDeliveries(Model model){
+  //   List<Order> orders = service.getAllCompletedOrders();
+  //   model.addAttribute("totalOrders", orders);
+  //   model.addAttribute("employeesNames", service.getRidersByOrder(orders));
+  //   return "Estatísticas";
+  // }
 }
