@@ -85,8 +85,19 @@ public class ExpressDeliveryController {
   @GetMapping("/dashboard")
     public String getDashboard( Model model) {
       List<Rider> estafetas = new ArrayList<Rider>();
+      List<Order> orders = service.getAllCompletedOrders();
+      for (Order order : orders){
+        model.addAttribute("order", order);
+      }
+      for (Rider rider : estafetas){
+        model.addAttribute("averageRatingPerRider", service.getAverageRatingsPerRider(rider));
+        System.out.println(service.getAverageRatingsPerRider(rider));
+      }
       estafetas = riderRepository.findAll();
+      model.addAttribute("rider", service.getRidersByOrder(orders));
       model.addAttribute("RidersList", estafetas);
+      model.addAttribute("deliveriesPerDay", service.getNumberDeliveriesPerDay());
+      model.addAttribute("averageRating", service.getAverageRatingsRiders());
       return "EstafetasPerformance";
     }
 

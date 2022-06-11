@@ -82,53 +82,29 @@
               <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <span class="h4">Riders</span>
+                    <span class="h4">Deliveries Statistics</span>
                     <br>
                     <table class="table">
                       <thead>
                         <div class="row">
-                          <div class="col-sm-1">
-                            <span class="h7"><b>ID</b></span>
-                          </div>
-                          <div class="col-sm-3">
-                            <span class="h7"><b>Name</b></span>
-                          </div>
                           <div class="col-sm-4">
-                            <span class="h7"><b>Email</b></span>
+                            <span class="h7"><b>Number of Deliveries Today</b></span>
                           </div>
                           <div class="col-sm-3">
-                            <span class="h7"><b>Phone Number</b></span>
-                          </div>
-                          <div class="col-sm-1">
-                            <span class="h7"><b>Age</b></span>
+                            <span class="h7"><b>Average Ratings of Riders</b></span>
                           </div>
                         </div>
                       </thead>
                       <tbody>
-                        <th:block th:each="Estafeta : ${RidersList}">
                           <hr>
                           <div class="row">
-                            <div class="col-sm-1">
-                              <span class="h8" th:text="${Estafeta.id}"></span>
-                            </div>
-                            <div class="col-sm-3">
-                              <span class="h8" th:text="${Estafeta.name}"></span>
-                            </div>
                             <div class="col-sm-4">
-                              <span class="h8" th:text="${Estafeta.email}"></span>
+                              <span class="h8" th:text="${deliveriesPerDay}"></span>
                             </div>
                             <div class="col-sm-3">
-                              <span class="h8" th:text="${Estafeta.phone_number}"></span>
-                            </div>
-                            <div class="col-sm-1">
-                              <span class="h8" th:text="${Estafeta.age}"></span>
-                            </div>
+                              <span class="h8" th:text="${averageRating}"></span>
                           </div>
-                        </th:block>
                       </tbody>
-                      <form action="#"  th:action="@{/addRider}" method="GET">
-                        <button type="submit">Add Rider</button>
-                      </form>
                     </table>
                   </div>
                 </div>
@@ -172,7 +148,7 @@
                               <span class="h8" th:text="${Estafeta.name}"></span>
                             </div>
                             <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span> 
+                              <span class="h8" th:text="${averageRatingPerRider}"></span> 
                             </div>
                             <div class="col-sm-2">
                               <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>         <!-- criar algo que indique distâncias -->

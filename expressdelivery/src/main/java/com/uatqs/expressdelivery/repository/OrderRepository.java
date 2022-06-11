@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findById(int ind);
     List<Order> findByState(String state);
-    Optional<Order> findByRider(Rider tider);
+    List<Order> findByStateAndRider(String state, long rider_id);
+    Optional<Order> findByRider(Rider rider);
+    List<Order> findByStateAndTimestampBetween(String state, Timestamp begin, Timestamp end);
+    Order findByRating(long rating);
 }

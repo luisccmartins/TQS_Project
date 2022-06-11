@@ -122,8 +122,8 @@ public class Rider {
         this.ratings = ratings;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrders() {
+        return orders.get(8);
     }
 
     public void setOrders(List<Order> orders) {

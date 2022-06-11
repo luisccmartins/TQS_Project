@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -18,15 +19,15 @@ public class Order {
     private String state;
 
     @JoinColumn(name = "rider")
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Rider rider;
 
     @JoinColumn(name = "store")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Store store;
 
     @JoinColumn(name = "address")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 
     @CreationTimestamp
@@ -41,8 +42,11 @@ public class Order {
     @Column(name = "rating")
     private int rating;
 
+    @Column(name="timestamp")
+    private Timestamp timestamp;
+
     public Order(int id, String state, Rider rider, Store store, Address address, Date date, String description,
-            int client_phone_number, int rating) {
+            int client_phone_number, int rating, Timestamp timestamp) {
         this.id = id;
         this.state = state;
         this.rider = rider;
@@ -52,6 +56,7 @@ public class Order {
         this.description = description;
         this.client_phone_number = client_phone_number;
         this.rating = rating;
+        this.timestamp = timestamp;
     }
 
     
@@ -89,6 +94,10 @@ public class Order {
         return store;
     }
 
+    public String getStoreName(){
+        return store.getName();
+    }
+
     public void setStore(Store store) {
         this.store = store;
     }
@@ -99,6 +108,10 @@ public class Order {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getAddressName(){
+        return address.getStreet();
     }
 
     public Date getDate() {
@@ -135,6 +148,18 @@ public class Order {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     

@@ -3,6 +3,8 @@ package com.uatqs.expressdelivery.service;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,4 +77,23 @@ public class ExpressDeliveryService {
         else
             return 0.0;
     }
+
+    public Double getAverageRatingsPerRider(Rider rider){
+        double ratings = 0.0;
+        List<Order> orders = orderRepository.findByStateAndRider("COMPLETED", rider.getId());
+        for(Order order : orders){
+            ratings += order.getRating();
+        }
+        if(orders.size() > 0)
+            return ratings / orders.size();
+        else
+            return 0.0;
+    }
+
+    public int getNumberDeliveriesPerDay(){
+        long currentTime = System.currentTimeMillis();
+        return orderRepository.findByStateAndTimestampBetween("COMPLETED", new Timestamp(currentTime - 86400000), new Timestamp(currentTime)).size();
+    }
+
+
 }

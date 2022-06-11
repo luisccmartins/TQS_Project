@@ -74,10 +74,10 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">                
-              <div class="col-md-8 grid-margin stretch-card">
+              <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <span class="h4">Deliveries</span>
+                    <span class="h4">Completed Deliveries</span>
                     <br>
                     <table class="table">
                       <thead>
@@ -85,17 +85,23 @@
                           <div class="col-sm-1">
                             <span class="h7"><b>ID</b></span>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-2">
                             <span class="h7"><b>Description</b></span>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-2">
                             <span class="h7"><b>Rider</b></span>
                           </div>
                           <div class="col-sm-1">
                             <span class="h7"><b>Rating</b></span>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-2">
                             <span class="h7"><b>Client Phone Number</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Address</b></span>
+                          </div>
+                          <div class="col-sm-2">
+                            <span class="h7"><b>Store</b></span>
                           </div>
                         </div>
                       </thead>
@@ -106,17 +112,23 @@
                             <div class="col-sm-1">
                               <span class="h8" th:text="${order.id}"></span>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                               <span class="h8" th:text="${order.description}"></span>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                               <span class="h8" th:text="${riderName.get(order.id)}"></span>
                             </div>
                             <div class="col-sm-1">
                               <span class="h8" th:text="${order.rating}"></span>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                               <span class="h8" th:text="${order.client_phone_number}"></span>
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${order.getAddressName()}"></span>
+                            </div>
+                            <div class="col-sm-2">
+                              <span class="h8" th:text="${order.getStoreName()}"></span>
                             </div>
                           </div>
                         </th:block>

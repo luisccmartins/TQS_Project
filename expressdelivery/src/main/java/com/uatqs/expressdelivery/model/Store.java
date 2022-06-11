@@ -15,10 +15,10 @@ public class Store {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
     public Store(int id, String name, Address address) {
