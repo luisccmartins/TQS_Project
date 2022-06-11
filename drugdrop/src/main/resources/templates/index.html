@@ -94,15 +94,15 @@
 
         <div class="main-panel">
           <div class="content-wrapper">
-            <th:insert th:each="Medicamento : ${DrugsList}">
-              <div class="row">
-                <div class="col-md-3 grid-margin">
+            <div class="row">
+              <th:insert th:each="Medicamento : ${DrugsList}">
+                <div class="col-md-12 grid-margin">
                   <div class="card">
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-md-3">
-                          <div class="d-flex align-items-center pb-2">
-                            <p class="mb-0" th:text="${Medicamento.name}"></p>
+                        <div class="">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
                           </div>
                           <div style="text-align: center;">
                             <h5 class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
@@ -116,10 +116,12 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </th:insert>
+              </th:insert>
+            </div>
           </div>
         </div>
+
+
         
         
       </div>

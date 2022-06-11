@@ -116,7 +116,7 @@ public class DrugDropController {
 
     if (name == "" || description == "" || price == null) {
       model.addAttribute("error", "All fields must be filled!");
-      return "AddRider";
+      return "AddDrug";
     }
     else{
       drugRepository.save(r);
