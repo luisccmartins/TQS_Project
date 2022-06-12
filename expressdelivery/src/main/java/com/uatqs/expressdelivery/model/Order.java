@@ -60,6 +60,14 @@ public class Order {
     }
 
     
+    public Order(String state, Store store, Address address, int client_phone_number, Timestamp timestamp) {
+        this.state = state;
+        this.store = store;
+        this.address = address;
+        this.client_phone_number = client_phone_number;
+        this.timestamp = timestamp;
+    }
+
 
     public Order() {
     }

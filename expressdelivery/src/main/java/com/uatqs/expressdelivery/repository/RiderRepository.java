@@ -10,5 +10,5 @@ import com.uatqs.expressdelivery.model.Rider;
 public interface RiderRepository extends JpaRepository<Rider,Long>{
     Rider findByName(String name);
     Rider findByEmail(String email);
-    Rider findRiderById(int id);
+    Rider findRiderById(Integer rider_id);
 }

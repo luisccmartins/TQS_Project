@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,12 +28,16 @@ public class Rider {
     @Column(name = "email")
     private String email;
 
+    @Column(name="password")
+    @NotBlank
+    private String password;
+
     @Column(name = "available")
     private boolean available;
 
     @Column(name = "ratings")
     @ElementCollection
-    private List<Integer> ratings = new ArrayList<Integer>();
+    public List<Integer> ratings = new ArrayList<Integer>();
 
     @Column(name = "ratingsAverage")
     public Double ratingsAverage;
@@ -48,6 +53,17 @@ public class Rider {
         this.email = email;
         this.available = available;
     }
+
+    
+    public Rider(String name, int phone_number, int age, String email, @NotBlank String password) {
+        this.name = name;
+        this.phone_number = phone_number;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+
 
 
     public Rider(String name, int phone_number, String email, boolean available,
@@ -134,6 +150,23 @@ public class Rider {
     public void setRatingsAverage(Double ratingsAverage) {
         this.ratingsAverage = ratingsAverage;
     }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public Double getRatingsAverage() {
+        return ratingsAverage;
+    }
+
+    
 
 
 }
