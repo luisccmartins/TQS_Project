@@ -381,6 +381,7 @@
   min-height: calc(100vh - 63px);
   background: linear-gradient(to top, #5768f3, #1c45ef);
   font-family: "roboto", sans-serif;
+  
   padding: 0;
   width: 270px;
   z-index: 11;

@@ -16,13 +16,19 @@
                 <label class="label"><b>Name</b></label>
                 <input th:field="*{name}" type="text" class="form-control" placeholder="Name">
 
-                <label class="label"><b>Description</b></label>
-                <input th:field="*{description}" type="text" class="form-control" placeholder="Descripton">
+                <label class="label"><b>Address</b></label>
+                <input th:field="*{address}" type="text" class="form-control" placeholder="Address">
 
-                <label class="label"><b>Price</b></label>
-                <input th:field="*{price}" type="text" class="form-control" placeholder="Price">
-            
-                <button type="submit">Add Drug</button>
+                <label class="label"><b>Drugs Available</b></label>
+                <div class="field_wrapper">
+                    <div>
+                        <input th:field="*{drugName}" type="text" class="form-control" placeholder="Name"/>
+                        <input th:field="*{drugDescription}" type="text" class="form-control" placeholder="Description"/>
+                        <input th:field="*{drugPrice}" type="text" class="form-control" placeholder="Price"/>
+                        <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a>
+                    </div>
+                </div>
+                <button type="submit">Add Store</button>
             </div>
         </form>
     </div>
@@ -35,6 +41,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="/TQS_Project/drugdrop/src/main/resources/static/js/new.js"></script>
 
     </body>
 </html>

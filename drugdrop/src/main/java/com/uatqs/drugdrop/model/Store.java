@@ -1,5 +1,8 @@
 package com.uatqs.drugdrop.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,9 +19,14 @@ public class Store {
     @OneToOne
     private Address address;
 
-    public Store(String name, Address address){
+    @Column(name = "druglist")
+    @ElementCollection
+    public List<Drug> druglist = new ArrayList<Drug>();
+
+    public Store(String name, Address address, List<Drug> druglist){
         this.name = name;
         this.address = address;
+        this.druglist = druglist;
     }
 
     public Store(){
@@ -47,6 +55,14 @@ public class Store {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Drug> getDruglist() {
+        return druglist;
+    }
+
+    public void setDruglist(List<Drug> druglist) {
+        this.druglist = druglist;
     }
 
     
