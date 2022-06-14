@@ -1,7 +1,5 @@
 package com.uatqs.drugdrop.model;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.uatqs.drugdrop.repository.UserRepository;

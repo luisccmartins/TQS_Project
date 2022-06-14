@@ -20,7 +20,7 @@ public class Order {
     private String state;
 
     @Column(name = "store_id")
-    private double store_id;
+    private int store_id;
 
     public Order(String description, double price, String state) {
         this.state = state;
@@ -68,7 +68,7 @@ public class Order {
         return store_id;
     }
 
-    public void setStore_id(double store_id) {
+    public void setStore_id(int store_id) {
         this.store_id = store_id;
     }
 

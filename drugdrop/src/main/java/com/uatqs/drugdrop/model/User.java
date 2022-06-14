@@ -23,7 +23,7 @@ public class User {
     private int phone_number;
 
     @Column(name="payment_method")
-    private Integer paymentMethodId;
+    private int paymentMethodId;
 
     @OneToOne
     private Address address;
@@ -94,11 +94,11 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public Integer getPaymentMethodId() {
+    public int getPaymentMethodId() {
         return paymentMethodId;
     }
 
-    public void setPaymentMethodId(Integer paymentMethodId) {
+    public void setPaymentMethodId(int paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
     }
 
