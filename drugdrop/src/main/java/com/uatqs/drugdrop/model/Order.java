@@ -17,13 +17,12 @@ public class Order {
     private double price;
 
     @Column(name = "state")
-    private OrderState state;
-
+    private String state;
 
     @Column(name = "store_id")
     private double store_id;
 
-    public Order(String description, double price, OrderState state) {
+    public Order(String description, double price, String state) {
         this.state = state;
         this.description = description;
         this.price = price;
@@ -41,14 +40,6 @@ public class Order {
         this.id = id;
     }
 
-    public OrderState getState() {
-        return state;
-    }
-
-    public void setState(OrderState state) {
-        this.state = state;
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -64,5 +55,23 @@ public class Order {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public double getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(double store_id) {
+        this.store_id = store_id;
+    }
+
+    
 
 }

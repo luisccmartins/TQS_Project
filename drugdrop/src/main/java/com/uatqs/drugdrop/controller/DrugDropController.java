@@ -30,6 +30,7 @@ import com.uatqs.drugdrop.service.UserService;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -48,10 +49,6 @@ public class DrugDropController {
   @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
 
-  @ModelAttribute("LoginInput")
-  public LoginInput getGreetingObject() {
-    return new LoginInput();
-  }
 
   @ModelAttribute("inputDrug")
   public Drug getGreetingObjectRider() {
