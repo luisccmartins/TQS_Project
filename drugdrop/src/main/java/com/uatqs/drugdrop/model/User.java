@@ -20,7 +20,7 @@ public class User {
     private String password;
 
     @Column(name="phone_number")
-    private String phone_number;
+    private int phone_number;
 
     @Column(name="payment_method")
     private Integer paymentMethodId;
@@ -34,6 +34,17 @@ public class User {
         this.password = password;
         this.address = address;
     }
+
+    
+
+    public User(String name, String email, String password, int phone_number) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
+    }
+
+
 
     public int getId() {
         return this.id;
@@ -75,11 +86,11 @@ public class User {
         this.address = address;
     }
 
-    public String getPhone_number() {
+    public int getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(String phone_number) {
+    public void setPhone_number(int phone_number) {
         this.phone_number = phone_number;
     }
 
