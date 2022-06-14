@@ -19,7 +19,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    //@Column(name = "address")
+    @Column(name="phone_number")
+    private String phone_number;
+
+    @Column(name="payment_method")
+    private Integer paymentMethodId;
+
     @OneToOne
     private Address address;
 
@@ -69,5 +74,23 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public Integer getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(Integer paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    
 
 }
