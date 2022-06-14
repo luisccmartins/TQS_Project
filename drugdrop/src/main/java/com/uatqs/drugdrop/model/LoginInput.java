@@ -3,7 +3,12 @@ package com.uatqs.drugdrop.model;
 public class LoginInput {
     private String email;
     private String password;
+
     
+    public LoginInput(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
     public String getEmail() {
         return email;
     }

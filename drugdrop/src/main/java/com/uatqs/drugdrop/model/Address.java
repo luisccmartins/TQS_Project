@@ -17,15 +17,11 @@ public class Address {
     @OneToOne
     private User user;
 
-    @OneToOne(mappedBy = "address")
-    private Store store;
-
-    public Address(String street, String postalCode, String city, String country, Store store) {
+    public Address(String street, String postalCode, String city, String country) {
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
         this.country = country;
-        this.store = store;
     }
 
 
@@ -64,11 +60,4 @@ public class Address {
         this.country = country;
     }
 
-    public Store getStore() {
-        return store;
-    }
-
-    public void setStore(Store store) {
-        this.store = store;
-    }
 }
