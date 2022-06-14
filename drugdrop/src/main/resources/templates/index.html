@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/demo_1/style.css">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="container-scroller">
@@ -35,19 +36,36 @@
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <a class="btn btn-light nav-link dropdown-toggle" id="CartDropdown" data-toggle="dropdown" aria-expanded="false" style="height:40px;width:50px;"><i class="fas fa-shopping-cart"></i></a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="CartDropdown">
                 <div class="dropdown-header text-center">
-                  <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-                  <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                  <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+                  <p class="mb-1 mt-3 font-weight-semibold">Here you can look at your shopping cart items</p>
                 </div>
-                <a class="dropdown-item">My Profile <span class="badge badge-pill badge-danger">1</span><i class="dropdown-item-icon ti-dashboard"></i></a>
-                <a class="dropdown-item">Messages<i class="dropdown-item-icon ti-comment-alt"></i></a>
-                <a class="dropdown-item">Activity<i class="dropdown-item-icon ti-location-arrow"></i></a>
-                <a class="dropdown-item">FAQ<i class="dropdown-item-icon ti-help-alt"></i></a>
-                <a class="dropdown-item">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
+                <th:insert th:each="Medicamento : ${DrugsList}" class="dropdown-item">
+                  <div class="col-md-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="">
+                            <div class="d-flex align-items-center">
+                              <p class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
+                            </div>
+                            <div style="text-align: center;">
+                              <h5 class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
+                              <i class='fas fa-capsules' style='font-size:48px;color:red'></i><!-- SUBSTITUIR ESTAS COISAS COM IMAGENS QUE FICARÃO NA BD, ACHO EU-->
+                            </div>
+                              <label for="quantity">Quantity:</label>
+                              <input type="number" id="quantity" name="quantity" min="1" max="5">
+                              <button style='font-size:18px'>Add <i class='fas fa-shopping-cart'></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </th:insert>
+                <div class="center">
+                  <button class="btn btn-primary" type="button">Make Order</button>
+                </div>
               </div>
             </li>
           </ul>

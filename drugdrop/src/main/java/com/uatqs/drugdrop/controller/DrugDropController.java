@@ -1,4 +1,4 @@
-package com.uatqs.drugdrop.controllers;
+package com.uatqs.drugdrop.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
