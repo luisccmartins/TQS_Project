@@ -28,5 +28,9 @@ public class StoreService {
     public Store getStoreById(Integer id){
         return storeRepository.findById(id);
     }
+
+    public Store getStoreByEmail(String email){
+        return storeRepository.findByEmail(email);
+    }
     
 }

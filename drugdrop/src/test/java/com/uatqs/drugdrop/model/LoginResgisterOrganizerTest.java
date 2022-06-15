@@ -23,7 +23,7 @@ public class LoginResgisterOrganizerTest {
 
     @Test
     public void testLoginSuccessful(){
-        User user = new User("ProfJam", "profjam@drugdrop.pt", "aguaDeCoco", 960123759);
+        User user = new User("ProfJam", "profjam@drugdrop.pt", "aguaDeCoco", 960123759, "Rua da Alameda");
         LoginInput loginInput = new LoginInput("profjam@drugdrop.pt", "aguaDeCoco");
 
         when(userRepository.findByEmail(any())).thenReturn(null);
@@ -35,7 +35,7 @@ public class LoginResgisterOrganizerTest {
 
     @Test
     public void testLoginInvalid(){
-        User user = new User("ProfJam", "profjam@drugdrop.pt", "aguaDeCoco", 960123759);
+        User user = new User("ProfJam", "profjam@drugdrop.pt", "aguaDeCoco", 960123759, "Rua da Alameda");
         LoginInput loginInput = new LoginInput("profjam@drugdrop.pt", "touBem");
 
         when(userRepository.findByEmail(any())).thenReturn(null);

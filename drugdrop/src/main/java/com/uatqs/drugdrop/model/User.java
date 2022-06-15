@@ -22,26 +22,27 @@ public class User {
     @Column(name="phone_number")
     private int phone_number;
 
-    @Column(name="payment_method")
-    private int paymentMethodId;
+    @Column(name = "address")
+    private String address;
 
-    @OneToOne
-    private Address address;
 
-    public User(String name, String email, String password, Address address){
+
+    public User(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
-        this.address = address;
     }
 
-    
 
-    public User(String name, String email, String password, int phone_number) {
+    public User() {
+    }
+
+    public User(String name, String email, String password, int phone_number, String address) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone_number = phone_number;
+        this.address = address;
     }
 
 
@@ -78,14 +79,6 @@ public class User {
         this.password = password;
     }
 
-    public Address getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public int getPhone_number() {
         return phone_number;
     }
@@ -94,13 +87,19 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public int getPaymentMethodId() {
-        return paymentMethodId;
+
+
+    public String getAddress() {
+        return address;
     }
 
-    public void setPaymentMethodId(int paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+
+
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    
 
     
 

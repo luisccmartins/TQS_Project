@@ -14,9 +14,6 @@ public class Address {
     private String city;
     private String country;
 
-    @OneToOne
-    private User user;
-
     public Address(String street, String postalCode, String city, String country) {
         this.street = street;
         this.postalCode = postalCode;

@@ -1,5 +1,7 @@
 package com.uatqs.drugdrop.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cart_products")
-public class CartProducts {
+public class CartProducts implements Serializable {
 
     @Id
     @Column(name="id_cart")

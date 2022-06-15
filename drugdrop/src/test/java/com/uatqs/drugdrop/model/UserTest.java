@@ -13,7 +13,7 @@ public class UserTest {
     @BeforeEach
     public void setUp(){
         address = new Address("Rua da Alameda", "3080", "Aveiro", "Portugal");
-        user = new User("ProfJam", "mario@drugdrop.pt", "aguaDeCoco", address);
+        user = new User("ProfJam", "mario@drugdrop.pt", "aguaDeCoco");
     }
 
     @Test

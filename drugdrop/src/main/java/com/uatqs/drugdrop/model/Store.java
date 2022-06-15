@@ -2,6 +2,7 @@ package com.uatqs.drugdrop.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -16,17 +17,31 @@ public class Store {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    private Address address;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "druglist")
     @ElementCollection
-    public List<Drug> druglist = new ArrayList<Drug>();
+    Set<Drug> drugs;
 
-    public Store(String name, Address address, List<Drug> druglist){
+    public Store(String name, String address, Set<Drug> drugs){
         this.name = name;
         this.address = address;
-        this.druglist = druglist;
+        this.drugs = drugs;
+    }
+
+
+    public Store(String name, String address, String email, String password) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.password = password;
     }
 
     public Store(){
@@ -49,20 +64,40 @@ public class Store {
         this.name = name;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return this.address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public List<Drug> getDruglist() {
-        return druglist;
+    public Set<Drug> getDruglist() {
+        return drugs;
     }
 
-    public void setDruglist(List<Drug> druglist) {
-        this.druglist = druglist;
+    public void setDruglist(Set<Drug> drugs) {
+        this.drugs = drugs;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     

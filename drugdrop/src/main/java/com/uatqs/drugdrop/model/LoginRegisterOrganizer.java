@@ -27,7 +27,7 @@ public class LoginRegisterOrganizer {
         if (userService.accountExists(registerInput.getEmail())){
             return false;
         } 
-        User user = new User(registerInput.getName(), registerInput.getEmail(), registerInput.getPassword(), registerInput.getPhone_number());
+        User user = new User(registerInput.getName(), registerInput.getEmail(), registerInput.getPassword(), registerInput.getPhone_number(), registerInput.getAddress());
         userRepository.save(user);
         return true;
     }

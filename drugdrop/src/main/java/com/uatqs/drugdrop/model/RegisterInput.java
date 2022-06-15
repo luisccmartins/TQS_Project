@@ -6,12 +6,18 @@ public class RegisterInput {
     private String email;
     private String password;
     private int phone_number;
+    private String address;
     
-    public RegisterInput(String name, String email, String password, int phone_number) {
+    public RegisterInput(String name, String email, String password, int phone_number, String address) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone_number = phone_number;
+        this.address = address;
+    }
+
+
+    public RegisterInput() {
     }
 
     public String getName() {
@@ -46,5 +52,15 @@ public class RegisterInput {
         this.phone_number = phone_number;
     }
 
-    
+
+    public String getAddress() {
+        return address;
+    }
+
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+        
 }

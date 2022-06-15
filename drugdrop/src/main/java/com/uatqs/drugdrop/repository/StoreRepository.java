@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface StoreRepository extends JpaRepository<Store, Long> {
     Store findById(Integer id);
     List<Store> findByName(String name);
+    Store findByEmail(String email);
 }
