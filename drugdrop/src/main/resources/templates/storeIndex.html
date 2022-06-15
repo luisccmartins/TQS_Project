@@ -70,6 +70,12 @@
                 <span class="menu-title">Profile</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/logout}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Logout</span>
+              </a>
+            </li>
           </ul>
         </nav>
 
@@ -97,6 +103,10 @@
                               <td th:text="${drug.description}"></td>
                               <td th:text="${drug.price}"></td>
                               <td>
+                                <form th:action="@{/deleteDrug/{id}(id=${drug.id})}" th:object="${DrugsList}" method="POST">
+                                  <button class="float-right" type="submit">Delete</button>
+                                </form>
+                            </td>
                             </td>
                             </tr>
                             </tbody>

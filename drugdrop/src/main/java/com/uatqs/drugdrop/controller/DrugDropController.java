@@ -3,6 +3,7 @@ package com.uatqs.drugdrop.controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -96,7 +97,17 @@ public class DrugDropController {
   }
 
   @PostMapping("/")
-  public String greetingSubmit(@ModelAttribute LoginInput inputLogin, Model model) {
+  public String greetingSubmit(@ModelAttribute LoginInput inputLogin, Model model) throws SQLException, ClassNotFoundException {
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+
+    st.executeUpdate(" DELETE FROM login_info");
+
+    conn.close();
     HttpSession session = httpSessionFactory.getObject();
     String email = inputLogin.getEmail();
     String password = inputLogin.getPassword();
@@ -197,7 +208,11 @@ public class DrugDropController {
 
     @GetMapping("/storeIndex")
     public String getDashboardStore( Model model) {
-      Store stores = storeRepository.findById(1);
+      List<LoginInput> login = new ArrayList<LoginInput>();
+      login = loginInputRepository.findAll();
+      String email = login.get(0).getEmail();
+      Integer store_logIn = storeService.getStoreByEmail(email).getId();
+      Store stores = storeRepository.findById(store_logIn);
       Set<Drug> druglist = stores.getDruglist();
     
       model.addAttribute("DrugsList", druglist);
@@ -212,6 +227,10 @@ public class DrugDropController {
 
   @PostMapping("/addDrug")
   public String addNewDrug(@ModelAttribute Drug inputDrug, Model model) throws ClassNotFoundException, SQLException {
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    String email = login.get(0).getEmail();
+    Integer store_logIn = storeService.getStoreByEmail(email).getId();
 
     String name = inputDrug.getName();
     String description = inputDrug.getDescription();
@@ -233,7 +252,7 @@ public class DrugDropController {
       Statement st = conn.createStatement();
 
       st.executeUpdate("INSERT INTO stores_drugs(store_id, drugs_id) "
-          +"VALUES (1," + r.getId() + ")");
+          +"VALUES ("+store_logIn+"," + r.getId() + ")");
 
       conn.close();
 
@@ -242,11 +261,44 @@ public class DrugDropController {
   }
 
   @GetMapping("/profile")
-  public String getProfile(Model model, LoginInputRepository loginInput) {
-    System.out.println(loginInput);
-    //LoginInput login = loginInputService.getUserByEmail(loginInput.findAll());
-    //User user = userService.getUserById(userLoggedIn.getId());
-    //model.addAttribute("user", user);
+  public String getProfile(Model model) {
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    User user = userService.getUserByEmail(login.get(0).getEmail());
+    model.addAttribute("user", user);
     return "userProfile";
+  }
+
+  @GetMapping("/logout")
+  public String logout(Model model) throws SQLException, ClassNotFoundException {
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    String email = login.get(0).getEmail();
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM login_info WHERE email='"+ email + "'");
+
+    conn.close();
+
+    return "redirect:/";
+  }
+
+  @PostMapping("/deleteDrug/{id}")
+  public String deleteRider(@PathVariable long id) throws SQLException, ClassNotFoundException{
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM stores_drugs WHERE drugs_id="+ id);
+
+    conn.close();
+    drugRepository.deleteById(id);
+    return "redirect:/storeIndex";
   }
 }

@@ -8,7 +8,7 @@ public class Drug {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     
     @Column(name = "name")
     private String name;
@@ -29,7 +29,7 @@ public class Drug {
 
     }
     
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 

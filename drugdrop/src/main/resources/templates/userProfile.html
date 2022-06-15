@@ -94,15 +94,21 @@
             </li>
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">
-              <a class="nav-link" href="index">
+              <a class="nav-link" th:href="@{/userIndex}">
                 <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Fármacos</span>
+                <span class="menu-title">Drugs</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="encomendas">
                 <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">As minhas encomendas</span>
+                <span class="menu-title">My Orders</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/logout}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
@@ -114,9 +120,6 @@
                   <div class="card">
                       <div class="card-header card-header-primary">
                         <h4 class="card-title ">Profile</h4>
-                        <form action="#"  th:action="@{/profile}" method="GET">
-                          <button class="float-right" type="submit">Add Rider</button>
-                        </form>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -130,14 +133,9 @@
                             <tbody th:each="user : ${user}">
                             <tr>
                               <td th:text="${user.name}"></td>
-                              <td th:text="${rider.email}"></td>
-                              <td th:text="${rider.phone_number}"></td>
-                              <td th:text="${rider.address}"></td>
-                              <td>
-                                <form th:action="@{/deleteRider/{id}(id=${rider.id})}" th:object="${riders}" method="POST">
-                                  <button class="float-right" type="submit">Delete</button>
-                                </form>
-                            </td>
+                              <td th:text="${user.email}"></td>
+                              <td th:text="${user.phone_number}"></td>
+                              <td th:text="${user.address}"></td>
                             </tr>
                             </tbody>
                           </table>
