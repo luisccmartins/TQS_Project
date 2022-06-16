@@ -18,6 +18,7 @@ import com.uatqs.drugdrop.model.LoginInput;
 import com.uatqs.drugdrop.model.Order;
 import com.uatqs.drugdrop.model.OrderProducts;
 import com.uatqs.drugdrop.model.RegisterInput;
+import com.gargoylesoftware.htmlunit.javascript.host.dom.Document;
 import com.uatqs.drugdrop.model.Address;
 import com.uatqs.drugdrop.model.Store;
 import com.uatqs.drugdrop.model.User;
@@ -40,7 +41,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -54,6 +55,9 @@ public class DrugDropController {
 
   @Autowired
   private DrugRepository drugRepository;
+
+  @Autowired
+  private DrugService drugService;
 
   @Autowired
   private UserRepository userRepository;
@@ -215,7 +219,19 @@ public class DrugDropController {
 
       List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
       medicamentosOrderProducts = orderProductsRepository.findAll();
-      model.addAttribute("OrderProductsList", medicamentosOrderProducts);
+      LinkedHashMap<String,String> namePrice = new LinkedHashMap<String,String>();
+      for (OrderProducts drug : medicamentosOrderProducts){
+        Integer drugID = (int)drug.getDrug_id();
+        System.out.println("CHEGAY AQUI");
+        Drug drug2add = drugService.getDrugById(drugID);
+        System.out.println("CHEGAY ALI");
+        String name = drug2add.getName();
+        Double price = drug2add.getPrice();
+        namePrice.put("name", name);
+        namePrice.put("price", price.toString());
+      }
+
+      model.addAttribute("OrderProductsList", namePrice);
 
       return "userIndex";
     }
@@ -317,7 +333,7 @@ public class DrugDropController {
   }
 
   @PostMapping("/addToCart/{id}")
-  public String addToCartaddToCart(@PathVariable long id) throws SQLException, ClassNotFoundException{
+  public String addToCartaddToCart(@PathVariable Long id) throws SQLException, ClassNotFoundException{
 
     Integer order_id = 1;
 

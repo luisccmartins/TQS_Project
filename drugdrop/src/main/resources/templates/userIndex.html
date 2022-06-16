@@ -47,10 +47,10 @@
                         <div class="row">
                           <div class="">
                             <div class="d-flex align-items-center">
-                              <p class="mb-0" style="text-align: center;" th:text="${Product.drug_id}"></p>
+                              <p class="mb-0" style="text-align: center;" th:text="${Product.get('name')}"></p>
                             </div>
                             <div style="text-align: center;">
-                              <h5 class="font-weight-semibold" th:text="${Product.order_id}"></h5>
+                              <h5 class="font-weight-semibold" th:text="${Product.get('price')}"></h5>
                               <i class='fas fa-capsules' style='font-size:48px;color:red'></i><!-- SUBSTITUIR ESTAS COISAS COM IMAGENS QUE FICARÃO NA BD, ACHO EU-->
                             </div>
                               <!--<label for="quantity">Quantity:</label>
