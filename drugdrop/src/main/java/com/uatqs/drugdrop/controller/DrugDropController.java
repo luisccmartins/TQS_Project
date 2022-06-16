@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.uatqs.drugdrop.model.Drug;
 import com.uatqs.drugdrop.model.LoginInput;
 import com.uatqs.drugdrop.model.Order;
+import com.uatqs.drugdrop.model.OrderProducts;
 import com.uatqs.drugdrop.model.RegisterInput;
 import com.uatqs.drugdrop.model.Address;
 import com.uatqs.drugdrop.model.Store;
@@ -23,11 +24,13 @@ import com.uatqs.drugdrop.model.User;
 
 import com.uatqs.drugdrop.repository.DrugRepository;
 import com.uatqs.drugdrop.repository.LoginInputRepository;
+import com.uatqs.drugdrop.repository.OrderProductsRepository;
 import com.uatqs.drugdrop.repository.StoreRepository;
 import com.uatqs.drugdrop.repository.UserRepository;
 
 import com.uatqs.drugdrop.service.DrugService;
 import com.uatqs.drugdrop.service.LoginInputService;
+import com.uatqs.drugdrop.service.OrderProductsService;
 import com.uatqs.drugdrop.service.StoreService;
 import com.uatqs.drugdrop.service.UserService;
 
@@ -57,6 +60,12 @@ public class DrugDropController {
 
   @Autowired
   private StoreRepository storeRepository;
+
+  @Autowired
+  private OrderProductsRepository orderProductsRepository;
+
+  @Autowired
+  private OrderProductsService orderProductsService;
 
   @Autowired
   private StoreService storeService;
@@ -203,6 +212,11 @@ public class DrugDropController {
       List<Drug> medicamentos = new ArrayList<Drug>();
       medicamentos = drugRepository.findAll();
       model.addAttribute("DrugsList", medicamentos);
+
+      List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
+      medicamentosOrderProducts = orderProductsRepository.findAll();
+      model.addAttribute("OrderProductsList", medicamentosOrderProducts);
+
       return "userIndex";
     }
 
@@ -300,5 +314,28 @@ public class DrugDropController {
     conn.close();
     drugRepository.deleteById(id);
     return "redirect:/storeIndex";
+  }
+
+  @PostMapping("/addToCart/{id}")
+  public String addToCartaddToCart(@PathVariable long id) throws SQLException, ClassNotFoundException{
+
+    Integer order_id = 1;
+
+    OrderProducts orderProducts = new OrderProducts(order_id, id);
+
+    orderProductsRepository.save(orderProducts);
+
+    /*String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM stores_drugs WHERE drugs_id="+ id);
+
+    conn.close();
+    drugRepository.deleteById(id);*/
+    System.out.println(id);
+    return "redirect:/userIndex";
   }
 }
