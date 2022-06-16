@@ -63,7 +63,10 @@
                   </div>
                 </th:insert>
                 <div class="center">
-                  <button class="btn btn-primary" type="button">Make Order</button>
+                  <!--th:action="@{/addToCart/{id}(id=${Medicamento.id})}" th:object="${DrugsList}" method="POST"-->
+                  <form>
+                    <button class="float-right btn btn-primary" type="submit" style='font-size:18px'>Make Order</i></button>
+                  </form>
                 </div>
               </div>
             </li>
