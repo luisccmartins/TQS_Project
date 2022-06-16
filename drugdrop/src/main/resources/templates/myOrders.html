@@ -36,26 +36,26 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
               <a class="btn btn-light nav-link dropdown-toggle" id="CartDropdown" data-toggle="dropdown" aria-expanded="false" style="height:40px;width:50px;"><i class="fas fa-shopping-cart"></i></a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="CartDropdown" style="overflow-y: auto;">
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="CartDropdown">
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3 font-weight-semibold">Here you can look at your shopping cart items</p>
                 </div>
-                <th:insert th:each="Product : ${OrderProductsList}" class="dropdown-item">
+                <th:insert th:each="Medicamento : ${DrugsList}" class="dropdown-item">
                   <div class="col-md-12 grid-margin">
                     <div class="card">
                       <div class="card-body">
                         <div class="row">
                           <div class="">
                             <div class="d-flex align-items-center">
-                              <p class="mb-0" style="text-align: center;" th:text="${Product.drug_id}"></p>
+                              <p class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
                             </div>
                             <div style="text-align: center;">
-                              <h5 class="font-weight-semibold" th:text="${Product.order_id}"></h5>
+                              <h5 class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
                               <i class='fas fa-capsules' style='font-size:48px;color:red'></i><!-- SUBSTITUIR ESTAS COISAS COM IMAGENS QUE FICARÃO NA BD, ACHO EU-->
                             </div>
-                              <!--<label for="quantity">Quantity:</label>
+                              <label for="quantity">Quantity:</label>
                               <input type="number" id="quantity" name="quantity" min="1" max="5">
-                              <button style='font-size:18px'>Add <i class='fas fa-shopping-cart'></i></button>-->
+                              <button style='font-size:18px'>Add <i class='fas fa-shopping-cart'></i></button>
                           </div>
                         </div>
                       </div>
@@ -63,10 +63,7 @@
                   </div>
                 </th:insert>
                 <div class="center">
-                  <!--th:action="@{/addToCart/{id}(id=${Medicamento.id})}" th:object="${DrugsList}" method="POST"-->
-                  <form>
-                    <button class="float-right btn btn-primary" type="submit" style='font-size:18px'>Make Order</i></button>
-                  </form>
+                  <button class="btn btn-primary" type="button">Make Order</button>
                 </div>
               </div>
             </li>
@@ -103,53 +100,50 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/myOrders}">
+              <a class="nav-link" href="encomendas">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">My Orders</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/profile}">
+              <a class="nav-link" th:href="@{/logout}">
                 <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Profile</span>
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
         </nav>
 
         <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row">
-              <th:insert th:each="Medicamento : ${DrugsList}">
-                <div class="col-md-12 grid-margin">
+            <div class="content-wrapper">
+              <div class="row">                
                   <div class="card">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="">
-                          <div class="d-flex align-items-center">
-                            <p class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
-                          </div>
-                          <div style="text-align: center;">
-                            <h5 class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
-                            <i class='fas fa-capsules' style='font-size:48px;color:red'></i><!-- SUBSTITUIR ESTAS COISAS COM IMAGENS QUE FICARÃO NA BD, ACHO EU-->
-                          </div>
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" min="1" max="5">
-                            <form th:action="@{/addToCart/{id}(id=${Medicamento.id})}" th:object="${DrugsList}" method="POST">
-                              <button class="float-right" type="submit" style='font-size:18px'>Add to cart <i class='fas fa-shopping-cart'></i></button>
-                            </form>
+                      <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Profile</h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead class=" text-primary">
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            </thead>
+                            <tbody th:each="user : ${user}">
+                            <tr>
+                              <td th:text="${user.name}"></td>
+                              <td th:text="${user.email}"></td>
+                              <td th:text="${user.phone_number}"></td>
+                              <td th:text="${user.address}"></td>
+                            </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </th:insert>
+              </div>
             </div>
-            <!--<div>
-              <button onclick="location.href='addDrug'" type="button" style='font-size:18px'>Add Store <i class='fas fa-capsules'></i></button>
-            </div>-->
-          </div>
-        </div>
         
       </div>
           <!-- content-wrapper ends -->
