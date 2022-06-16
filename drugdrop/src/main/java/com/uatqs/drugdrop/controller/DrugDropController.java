@@ -119,6 +119,7 @@ public class DrugDropController {
     Statement st = conn.createStatement();
 
     st.executeUpdate(" DELETE FROM login_info");
+    st.executeUpdate(" DELETE FROM order_products");
 
     conn.close();
     HttpSession session = httpSessionFactory.getObject();
@@ -219,19 +220,19 @@ public class DrugDropController {
 
       List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
       medicamentosOrderProducts = orderProductsRepository.findAll();
-      LinkedHashMap<String,String> namePrice = new LinkedHashMap<String,String>();
+      List<LinkedHashMap<String,String>> luisMartins = new ArrayList<LinkedHashMap<String,String>>();
       for (OrderProducts drug : medicamentosOrderProducts){
-        Integer drugID = (int)drug.getDrug_id();
-        System.out.println("CHEGAY AQUI");
-        Drug drug2add = drugService.getDrugById(drugID);
-        System.out.println("CHEGAY ALI");
+        LinkedHashMap<String,String> namePrice = new LinkedHashMap<String,String>();
+        Drug drug2add = drugService.getDrugById(drug.getDrug_id());
         String name = drug2add.getName();
         Double price = drug2add.getPrice();
         namePrice.put("name", name);
         namePrice.put("price", price.toString());
+        luisMartins.add(namePrice);
       }
 
-      model.addAttribute("OrderProductsList", namePrice);
+
+      model.addAttribute("OrderProductsList", luisMartins);
 
       return "userIndex";
     }
@@ -352,6 +353,21 @@ public class DrugDropController {
     conn.close();
     drugRepository.deleteById(id);*/
     System.out.println(id);
+    return "redirect:/userIndex";
+  }
+
+  @GetMapping("/deleteFromCart")
+  public String deleteFromCart() throws SQLException, ClassNotFoundException{
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM order_products");
+
+    conn.close();
+    orderProductsRepository.deleteAll();
     return "redirect:/userIndex";
   }
 }

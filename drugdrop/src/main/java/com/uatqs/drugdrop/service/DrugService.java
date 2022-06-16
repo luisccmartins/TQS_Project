@@ -25,7 +25,7 @@ public class DrugService {
         return drugRepository.findByName(name);
     }
 
-    public Drug getDrugById(Integer id){
+    public Drug getDrugById(long id){
         return drugRepository.findById(id);
     }
     

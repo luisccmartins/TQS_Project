@@ -67,6 +67,7 @@
                   <form>
                     <button class="float-right btn btn-primary" type="submit" style='font-size:18px'>Make Order</i></button>
                   </form>
+                    <a th:href="@{/deleteFromCart}" class="float-right" style='font-size:18px'>Delete Cart <i class='fas fa-shopping-cart'></i></a>
                 </div>
               </div>
             </li>
@@ -112,6 +113,12 @@
               <a class="nav-link" th:href="@{/profile}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Profile</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/logout}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
