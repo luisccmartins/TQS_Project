@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.ObjectFactory;
 import javax.servlet.http.HttpSession;  
 import org.springframework.stereotype.Controller;
@@ -47,6 +50,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -89,6 +93,13 @@ public class DrugDropController {
 
   @Autowired
   private OrderService orderService;
+
+
+  @Bean
+public RestTemplate restTemplate() {
+    RestTemplate restTemplate = new RestTemplate();
+    return restTemplate;
+}
 
   // @Autowired
   // private ExpressDeliveryService service;
@@ -459,9 +470,11 @@ public class DrugDropController {
 
     conn.close();
     orderProductsRepository.deleteAll();
+    connectionToExpressDelivery(order.getId(), user);
     return "redirect:/myOrders";
   }
 
+<<<<<<< HEAD
   @GetMapping("/searchBar")
   //@RequestMapping(value = "/searchBar", method=RequestMethod.POST)
   public String useSearchBar(@ModelAttribute Drug drug){ 
@@ -470,4 +483,12 @@ public class DrugDropController {
     System.out.println(drugName);
     return "redirect:/userIndex";
   }
+=======
+  private void connectionToExpressDelivery(Integer order_id, User user){
+    Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", "Universidade de Aveiro","destination", user.getAddress());
+
+    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9012/api/order", request, Integer.class);
+    System.out.println(response.getBody());
+}
+>>>>>>> df714d49b9a9950ffea625edcdf40afef627222d
 }
