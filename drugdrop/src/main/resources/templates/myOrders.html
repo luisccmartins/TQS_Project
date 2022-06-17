@@ -47,8 +47,8 @@
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name" th:text="${userName}"></p>
-                  <p class="profile-name" th:text="${userEmail}"></p>
+                  <p class="profile-name" th:text="${user.name}"></p>
+                  <p class="profile-name" th:text="${user.email}"></p>
                   <p class="designation">DrugDrop Client</p>
                 </div>
               </a>
@@ -82,40 +82,57 @@
         </nav>
 
         <div class="main-panel">
-            <div class="content-wrapper">
-              <div class="row">                
-                  <div class="card">
-                      <div class="card-header card-header-primary">
-                        <h3 class="card-title ">My Orders</h3>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead class=" text-primary">
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>State</th>
-                            </thead>
-                            <tbody th:each="Order : ${Orders}">
-                            <tr>
-                              <td th:text="${Order.description}"></td>
-                              <td th:text="${Order.price}"></td>
-                              <td th:text="${Order.state}"></td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
+          <div class="content-wrapper">
+            <div class="row">                
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h3 class="card-title ">My Orders</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                          <th>Description</th>
+                          <th>Price</th>
+                          <th>State</th>
+                          </thead>
+                          <tbody th:each="Order : ${Orders}">
+                          <tr>
+                            <td th:text="${Order.description}"></td>
+                            <td th:text="${Order.price}"></td>
+                            <td th:text="${Order.state}"></td>
+                          </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-              </div>
+                  </div>
             </div>
-        
-      </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <!-- partial -->
+          </div>
+          <div class="content-wrapper">
+            <div class="row">                
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h3 class="card-title ">Statistics</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class=" text-primary">
+                          <th>Number of Orders</th>
+                          </thead>
+                          <tbody th:each="NumberOrders : ${NumberOrders}">
+                          <tr>
+                            <td th:text="${NumberOrders}"></td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
         </div>
-        <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
     </div>
