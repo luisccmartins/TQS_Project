@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.uatqs.drugdrop.model.Drug;
 import com.uatqs.drugdrop.model.Store;
 import com.uatqs.drugdrop.model.User;
 import com.uatqs.drugdrop.repository.DrugRepository;
@@ -69,6 +70,8 @@ public class DrugDropControllerTest {
 
     private Store store;
 
+    private Drug drug;
+
     @BeforeEach
     public void setUp(){
 
@@ -91,6 +94,10 @@ public class DrugDropControllerTest {
         store.setPassword("store4");
         store.setName("Store 4");
         store.setAddress("Rua da Store 4");
+
+        drug = new Drug();
+        drug.setName("Ibuprofeno");
+        drug.setPrice(2.99);
     }
 
     @Test
@@ -119,11 +126,13 @@ public class DrugDropControllerTest {
 
     @Test
     public void loginSuccessful() throws Exception{
+
+        Mockito.when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
         
         mvc.perform(post("/")
-                    .param("email", "user1@drugdrop.pt")
-                    .param("password", "user1"))
-                    .andExpect(redirectedUrl("redirect:/userIndex"))
+                    .param("email", user.getEmail() )
+                    .param("password", user.getPassword() ))
+                    .andExpect(redirectedUrl("/userIndex"))
                     .andExpect(view().name("redirect:/userIndex"));
     }
 }
