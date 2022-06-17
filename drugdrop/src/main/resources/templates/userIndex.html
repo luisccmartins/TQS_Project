@@ -65,10 +65,8 @@
                 </th:insert>
                 <div class="center">
                   <!--th:action="@{/addToCart/{id}(id=${Medicamento.id})}" th:object="${DrugsList}" method="POST"-->
-                  <form>
-                    <button class="float-right btn btn-primary" type="submit" style='font-size:18px'>Make Order</i></button>
-                  </form>
-                    <a th:href="@{/deleteFromCart}" class="float-right" style='font-size:18px'>Delete Cart <i class='fas fa-shopping-cart'></i></a>
+                  <a class="float-right btn btn-primary" style='font-size:18px'  th:href="@{/makeOrder}">Make Order</i></a>
+                  <a th:href="@{/deleteFromCart}" class="float-right" style='font-size:18px'>Delete Cart <i class='fas fa-shopping-cart'></i></a>
                 </div>
               </div>
             </li>

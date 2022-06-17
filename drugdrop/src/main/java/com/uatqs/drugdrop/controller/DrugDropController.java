@@ -375,33 +375,70 @@ public class DrugDropController {
   }
 
   @GetMapping("/myOrders")
-    public String getOrders( Model model) {
-      List<Order> orders = new ArrayList<Order>();
-      orders = orderRepository.findAll();
+  public String getOrders( Model model) {
+    List<Order> orders = new ArrayList<Order>();
+    orders = orderRepository.findAll();
 
-      List<LoginInput> login = new ArrayList<LoginInput>();
-      login = loginInputRepository.findAll();
-      User user = userService.getUserByEmail(login.get(0).getEmail());
-      model.addAttribute("userName", user.getName());
-      model.addAttribute("userEmail", user.getEmail());
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    User user = userService.getUserByEmail(login.get(0).getEmail());
+    model.addAttribute("userName", user.getName());
+    model.addAttribute("userEmail", user.getEmail());
 
-      /*
-      List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
-      medicamentosOrderProducts = orderProductsRepository.findAll();
-      List<LinkedHashMap<String,String>> luisMartins = new ArrayList<LinkedHashMap<String,String>>();
-      for (OrderProducts drug : medicamentosOrderProducts){
-        LinkedHashMap<String,String> namePrice = new LinkedHashMap<String,String>();
-        Drug drug2add = drugService.getDrugById(drug.getDrug_id());
-        String name = drug2add.getName();
-        Double price = drug2add.getPrice();
-        namePrice.put("name", name);
-        namePrice.put("price", price.toString());
-        luisMartins.add(namePrice);
-      }*/
+    /*
+    List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
+    medicamentosOrderProducts = orderProductsRepository.findAll();
+    List<LinkedHashMap<String,String>> luisMartins = new ArrayList<LinkedHashMap<String,String>>();
+    for (OrderProducts drug : medicamentosOrderProducts){
+      LinkedHashMap<String,String> namePrice = new LinkedHashMap<String,String>();
+      Drug drug2add = drugService.getDrugById(drug.getDrug_id());
+      String name = drug2add.getName();
+      Double price = drug2add.getPrice();
+      namePrice.put("name", name);
+      namePrice.put("price", price.toString());
+      luisMartins.add(namePrice);
+    }*/
 
 
-      model.addAttribute("Orders", orders);
+    model.addAttribute("Orders", orders);
 
-      return "myOrders";
+    return "myOrders";
+  }
+
+  @GetMapping("/makeOrder")
+  public String makeOrder() throws SQLException, ClassNotFoundException{
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    User user = userService.getUserByEmail(login.get(0).getEmail());
+    int userId = user.getId();
+
+    String description = "";
+    Double totalPrice = 0.0;
+    //LinkedHashMap<String,Double> namePrice = new LinkedHashMap<String,Double>();
+    for (OrderProducts product : orderProductsRepository.findAll()){
+      long drugId = product.getDrug_id();
+      Drug drug2add = drugService.getDrugById(drugId);
+      String name = drug2add.getName();
+      Double price = drug2add.getPrice();
+      //namePrice.put(name, price);
+      description = description + "[ " + name + " ]";
+      totalPrice += price;
+
     }
+
+    Order order = new Order(description,totalPrice,"CREATED",userId);
+    orderRepository.save(order);
+
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM order_products");
+
+    conn.close();
+    orderProductsRepository.deleteAll();
+    return "redirect:/myOrders";
+  }
 }
