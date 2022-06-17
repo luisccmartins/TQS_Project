@@ -26,6 +26,9 @@ public class Order {
     @ManyToOne(cascade = CascadeType.ALL)
     private Store store;
 
+    @Column
+    private int store_id;
+
     @JoinColumn(name = "address")
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
@@ -44,6 +47,9 @@ public class Order {
 
     @Column(name="timestamp")
     private Timestamp timestamp;
+
+    @Column(name = "destination")
+    private String destination;
 
     public Order(int id, String state, Rider rider, Store store, Address address, Date date, String description,
             int client_phone_number, int rating, Timestamp timestamp) {
@@ -66,6 +72,16 @@ public class Order {
         this.address = address;
         this.client_phone_number = client_phone_number;
         this.timestamp = timestamp;
+    }
+
+    
+
+
+    public Order(int store_id, String description, int client_phone_number, String destination) {
+        this.store_id = store_id;
+        this.description = description;
+        this.client_phone_number = client_phone_number;
+        this.destination = destination;
     }
 
 

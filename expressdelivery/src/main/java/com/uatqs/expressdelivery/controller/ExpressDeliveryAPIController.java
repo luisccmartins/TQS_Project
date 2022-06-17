@@ -72,5 +72,14 @@ public class ExpressDeliveryAPIController {
     public String riderUpdateOrderStatus(@PathVariable Integer order_id, @PathVariable Integer rider_id, @PathVariable String state) throws Exception{
         return service.riderUpdateOrderState(order_id,rider_id, state);
     }
+
+    @PostMapping("/order")
+    public Integer order(@RequestBody Map<String, Object> request){
+        int store = (Integer) request.get("store");
+        int client_phone_number = (Integer) request.get("client_phone_number");
+        String description = (String) request.get("description");
+        String destination = (String) request.get("destination");
+        return service.createDelivery(store, client_phone_number, description, destination);
+    }
     
 }
