@@ -40,6 +40,7 @@
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3 font-weight-semibold">Here you can look at your shopping cart items</p>
                 </div>
+                <p></p>
                 <th:insert th:each="Product : ${OrderProductsList}" class="dropdown-item">
                   <div class="col-md-12 grid-margin">
                     <div class="card">
@@ -87,11 +88,12 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="images/avatargreen.png" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Bernardo Lenny</p>
+                  <p class="profile-name" th:text="${userName}"></p>
+                  <p class="profile-name" th:text="${userEmail}"></p>
                   <p class="designation">DrugDrop Client</p>
                 </div>
               </a>

@@ -19,13 +19,20 @@ public class Order {
     @Column(name = "state")
     private String state;
 
-    @Column(name = "store_id")
-    private int store_id;
+    @Column(name = "user_id")
+    private int user_id;
 
     public Order(String description, double price, String state) {
         this.state = state;
         this.description = description;
         this.price = price;
+    }
+
+    public Order(String description, double price, String state, int user_id) {
+        this.state = state;
+        this.description = description;
+        this.price = price;
+        this.user_id = user_id;
     }
 
     public Order(){
@@ -64,12 +71,12 @@ public class Order {
         this.state = state;
     }
 
-    public double getStore_id() {
-        return store_id;
+    public double getUser_id() {
+        return user_id;
     }
 
-    public void setStore_id(int store_id) {
-        this.store_id = store_id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     
