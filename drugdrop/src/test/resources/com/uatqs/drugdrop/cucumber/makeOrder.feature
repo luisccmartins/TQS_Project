@@ -1,7 +1,7 @@
 Feature: Make an order on DrugDrop
 
     Scenario: Make Order
-    When I navigate to "http://localhost:9012/"
+    When I navigate to "http://localhost:9014/"
     And I set the Email as ""
     And I set the Password as ""
     And I click on the "Login" button 
