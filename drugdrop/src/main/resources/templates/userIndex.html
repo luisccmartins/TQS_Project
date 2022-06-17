@@ -121,6 +121,13 @@
                 <span class="menu-title">Logout</span>
               </a>
             </li>
+            <li class="nav-item">
+              <input type="text" placeholder="Search" field="*{searchBarValue}" th:object="${searchBarValue}">
+              <a class="nav-link" th:href="@{/searchBar}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Search</span>
+              </a>
+            </li>
           </ul>
         </nav>
 

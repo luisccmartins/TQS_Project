@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
@@ -91,6 +93,7 @@ public class DrugDropController {
   // @Autowired
   // private ExpressDeliveryService service;
 
+  private String searchedDrug = "";
 
   @Autowired
   ObjectFactory<HttpSession> httpSessionFactory;
@@ -222,10 +225,24 @@ public class DrugDropController {
 
     @GetMapping("/userIndex")
     public String getDashboard( Model model) {
+
       List<Drug> medicamentos = new ArrayList<Drug>();
       medicamentos = drugRepository.findAll();
-      model.addAttribute("DrugsList", medicamentos);
-
+      List<Drug> medicamentosSearched = new ArrayList<Drug>();
+      System.out.println(searchedDrug);
+      if(searchedDrug == ""){
+        model.addAttribute("DrugsList", medicamentos);
+      }
+      else{
+        for(Drug drug : medicamentos){
+          if(drug.getName().contains(searchedDrug)){
+            medicamentosSearched.add(drug); 
+          }
+        }
+        System.out.println(medicamentosSearched);
+        model.addAttribute("DrugsList", medicamentosSearched);
+      }
+      searchedDrug="";
       List<OrderProducts> medicamentosOrderProducts = new ArrayList<OrderProducts>();
       medicamentosOrderProducts = orderProductsRepository.findAll();
       List<LinkedHashMap<String,String>> luisMartins = new ArrayList<LinkedHashMap<String,String>>();
@@ -338,7 +355,7 @@ public class DrugDropController {
     st.executeUpdate(" DELETE FROM login_info WHERE email='"+ email + "'");
 
     conn.close();
-
+    searchedDrug="";
     return "redirect:/";
   }
 
@@ -443,5 +460,14 @@ public class DrugDropController {
     conn.close();
     orderProductsRepository.deleteAll();
     return "redirect:/myOrders";
+  }
+
+  @GetMapping("/searchBar")
+  //@RequestMapping(value = "/searchBar", method=RequestMethod.POST)
+  public String useSearchBar(@ModelAttribute Drug drug){ 
+    String drugName = drug.getName();
+    searchedDrug = drugName;
+    System.out.println(drugName);
+    return "redirect:/userIndex";
   }
 }
