@@ -1,0 +1,39 @@
+<<<<<<< HEAD
+
+  
+=======
+>>>>>>> 184c90ec7ebd5f49f9d5a3afb8a41b2842afb134
+name: ExpressDelivery engine CI Pipeline
+
+on: #quando é executado
+   push:
+    branches: [ expressdelivery_dev ]
+   pull_request:
+    branches: [ expressdelivery_dev ]
+<<<<<<< HEAD
+
+
+jobs:
+  express-delivery-engine-runner:
+    # the type of runner that the job will run on, in this case, it will be on the Github runner that is ruunning on the vm provided for this project
+    runs-on:
+    - express-delivery-engine-runner
+
+=======
+
+
+jobs:
+  express-delivery-engine-runner:
+    # the type of runner that the job will run on, in this case, it will be on the Github runner that is ruunning on the vm provided for this project
+    runs-on:
+    - express-delivery-engine-runner
+
+>>>>>>> 184c90ec7ebd5f49f9d5a3afb8a41b2842afb134
+    name: Run ExpressDelivery docker-compose
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run compose
+      run: |
+        cd deliveries-engine/
+        sudo docker-compose down
+        sudo docker-compose up --build -d

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+  <head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div id="loginForm" class="modal1 container">
+        <form action="#"  th:action="@{/register}" th:object="${RegisterInput}" method="POST">
+            <div class="imgcontainer">
+                <a th:href="@{/register}"><img style="height: 100px; width: 100px; text-align: center;" src="/images/avatargreen.png" alt="Avatar" class="avatar"></a>
+                <a th:href="@{/registerStore}"><img style="height: 100px; width: 100px; text-align: center;" src="/images/store.png" alt="Avatar" class="avatar"></a>
+            </div>
+            <a style="height: 100px; width: 100px; text-align: center;" >Register as Customer</a>
+            <div class="container">
+                <label class="label"><b>Name</b></label>
+                <input th:field="*{name}" type="text" class="form-control" placeholder="Name">
+
+                <label class="label"><b>Phone Number</b></label>
+                <input th:field="*{phone_number}" type="text" class="form-control" placeholder="Phone Number">
+
+                <label class="label"><b>Email</b></label>
+                <input th:field="*{email}" type="text" class="form-control" placeholder="Email">
+
+                <label class="label"><b>Password</b></label>
+                <input th:field="*{password}" type="text" class="form-control" placeholder="Password">
+            
+                <button type="submit">Register Customer</button>
+            </div>
+        </form>
+        <a th:href="@{/}">Already have an account? Login</a>
+    </div>
+                  
+    
+
+    <p style="color:#FF0000; text-align: center;" th:text="${error}" />
+    <p style="color:#FF0000; text-align: center;" th:text="${errorPhone}" />
+    <p style="color:#FF0000; text-align: center;" th:text="${errorEmail}" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    </body>
+</html>
