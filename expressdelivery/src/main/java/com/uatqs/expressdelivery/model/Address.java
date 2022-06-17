@@ -3,17 +3,21 @@ package com.uatqs.expressdelivery.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Address")
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String street;
     private String postalCode;
     private String city;
     private String country;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Store store;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Order order;
 
     public Address(String street, String postalCode, String city, String country, Store store, Order order) {
@@ -23,6 +27,10 @@ public class Address {
         this.country = country;
         this.store = store;
         this.order = order;
+    }
+
+
+    public Address() {
     }
 
     public String getStreet() {

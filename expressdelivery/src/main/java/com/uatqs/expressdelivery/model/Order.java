@@ -1,5 +1,6 @@
 package com.uatqs.expressdelivery.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -7,24 +8,29 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "Orders")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @Column(name = "state")
-    private OrderState state;
+    private String state;
 
-    @ManyToOne
-    @Column(name = "rider")
+    @JoinColumn(name = "rider")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Rider rider;
 
-    @Column(name = "store")
+    @JoinColumn(name = "store")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Store store;
 
-    @Column(name = "address")
-    @OneToOne
+    @Column
+    private int store_id;
+
+    @JoinColumn(name = "address")
+    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 
     @CreationTimestamp
@@ -36,8 +42,17 @@ public class Order {
     @Column(name = "client_phone_number")
     private int client_phone_number;
 
-    public Order(int id, OrderState state, Rider rider, Store store, Address address, Date date, String description,
-            int client_phone_number) {
+    @Column(name = "rating")
+    private int rating;
+
+    @Column(name="timestamp")
+    private Timestamp timestamp;
+
+    @Column(name = "destination")
+    private String destination;
+
+    public Order(int id, String state, Rider rider, Store store, Address address, Date date, String description,
+            int client_phone_number, int rating, Timestamp timestamp) {
         this.id = id;
         this.state = state;
         this.rider = rider;
@@ -46,7 +61,34 @@ public class Order {
         this.date = date;
         this.description = description;
         this.client_phone_number = client_phone_number;
+        this.rating = rating;
+        this.timestamp = timestamp;
     }
+
+    
+    public Order(String state, Store store, Address address, int client_phone_number, Timestamp timestamp) {
+        this.state = state;
+        this.store = store;
+        this.address = address;
+        this.client_phone_number = client_phone_number;
+        this.timestamp = timestamp;
+    }
+
+    
+
+
+    public Order(int store_id, String description, int client_phone_number, String destination) {
+        this.store_id = store_id;
+        this.description = description;
+        this.client_phone_number = client_phone_number;
+        this.destination = destination;
+    }
+
+
+    public Order() {
+    }
+
+
 
     public int getId() {
         return id;
@@ -56,11 +98,11 @@ public class Order {
         this.id = id;
     }
 
-    public OrderState getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(OrderState state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -76,6 +118,10 @@ public class Order {
         return store;
     }
 
+    public String getStoreName(){
+        return store.getName();
+    }
+
     public void setStore(Store store) {
         this.store = store;
     }
@@ -86,6 +132,10 @@ public class Order {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getAddressName(){
+        return address.getStreet();
     }
 
     public Date getDate() {
@@ -110,6 +160,30 @@ public class Order {
 
     public void setClient_phone_number(int client_phone_number) {
         this.client_phone_number = client_phone_number;
+    }
+
+
+
+    public int getRating() {
+        return rating;
+    }
+
+
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     
