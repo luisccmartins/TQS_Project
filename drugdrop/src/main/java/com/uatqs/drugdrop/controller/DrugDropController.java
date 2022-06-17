@@ -356,18 +356,6 @@ public class DrugDropController {
     OrderProducts orderProducts = new OrderProducts(order_id, id);
 
     orderProductsRepository.save(orderProducts);
-
-    /*String myDriver = "com.mysql.jdbc.Driver";
-    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
-    Class.forName(myDriver);
-    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
-      
-    Statement st = conn.createStatement();
-    st.executeUpdate(" DELETE FROM stores_drugs WHERE drugs_id="+ id);
-
-    conn.close();
-    drugRepository.deleteById(id);*/
-    System.out.println(id);
     return "redirect:/userIndex";
   }
 
