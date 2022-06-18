@@ -460,7 +460,6 @@ public RestTemplate restTemplate() {
   private void connectionToExpressDelivery(Integer order_id, User user){
     Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", "Universidade de Aveiro","destination", user.getAddress());
 
-    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9012/api/order", request, Integer.class);
-    System.out.println(response.getBody());
+    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
 }
 }
