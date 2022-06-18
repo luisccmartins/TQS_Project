@@ -21,7 +21,7 @@ public class DrugService {
 
     public long total() { return drugRepository.count();}
 
-    public List<Drug> getDrugByName(String name){
+    public Drug getDrugByName(String name){
         return drugRepository.findByName(name);
     }
 

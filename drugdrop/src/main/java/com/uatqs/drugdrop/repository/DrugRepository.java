@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DrugRepository extends JpaRepository<Drug, Long> {
     Drug findById(long id);
-    List<Drug> findByName(String name);
+    Drug findByName(String name);
 }

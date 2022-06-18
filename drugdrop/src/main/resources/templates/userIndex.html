@@ -134,10 +134,10 @@
                       <div class="row">
                         <div class="">
                           <div class="d-flex align-items-center">
-                            <p class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
+                            <p id="name" class="mb-0" style="text-align: center;" th:text="${Medicamento.name}"></p>
                           </div>
                           <div style="text-align: center;">
-                            <h5 class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
+                            <h5 id="price" class="font-weight-semibold" th:text="${Medicamento.priceToString}"></h5>
                             <i class='fas fa-capsules' style='font-size:48px;color:red'></i><!-- SUBSTITUIR ESTAS COISAS COM IMAGENS QUE FICARÃO NA BD, ACHO EU-->
                           </div>
                             <label for="quantity">Quantity:</label>
