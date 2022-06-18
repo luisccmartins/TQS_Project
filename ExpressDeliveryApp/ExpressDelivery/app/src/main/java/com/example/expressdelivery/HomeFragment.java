@@ -10,6 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.expressdelivery.Controller.AppController;
+import com.example.expressdelivery.Model.Order;
+import com.example.expressdelivery.Service.AppService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,6 +73,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -86,6 +98,22 @@ public class HomeFragment extends Fragment {
 
         recyclerView1.setAdapter(myAdapterNew);
         recyclerView2.setAdapter(myAdapterInProgress);
+
+        AppService retrofitService = new AppService();
+        AppController appApi = retrofitService.getRetrofit().create(AppController.class);
+
+        appApi.getOrders()
+                .enqueue(new Callback<List<Order>>() {
+                    @Override
+                    public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                        Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Order>> call, Throwable t) {
+                        Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         return view;
     }
