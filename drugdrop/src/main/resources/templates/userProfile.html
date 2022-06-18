@@ -83,11 +83,12 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="images/avatargreen.png" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Bernardo Lenny</p>
+                  <p class="profile-name" th:text="${user.name}"></p>
+                  <p class="profile-name" th:text="${user.email}"></p>
                   <p class="designation">DrugDrop Client</p>
                 </div>
               </a>
@@ -100,9 +101,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="encomendas">
+              <a class="nav-link" th:href="@{/myOrders}">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">My Orders</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/profile}">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Profile</span>
               </a>
             </li>
             <li class="nav-item">
@@ -144,7 +151,8 @@
                     </div>
               </div>
             </div>
-        
+          </div>
+        </div>
       </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->

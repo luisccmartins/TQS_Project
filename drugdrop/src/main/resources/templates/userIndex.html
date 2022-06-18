@@ -40,6 +40,7 @@
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3 font-weight-semibold">Here you can look at your shopping cart items</p>
                 </div>
+                <p></p>
                 <th:insert th:each="Product : ${OrderProductsList}" class="dropdown-item">
                   <div class="col-md-12 grid-margin">
                     <div class="card">
@@ -64,10 +65,8 @@
                 </th:insert>
                 <div class="center">
                   <!--th:action="@{/addToCart/{id}(id=${Medicamento.id})}" th:object="${DrugsList}" method="POST"-->
-                  <form>
-                    <button class="float-right btn btn-primary" type="submit" style='font-size:18px'>Make Order</i></button>
-                  </form>
-                    <a th:href="@{/deleteFromCart}" class="float-right" style='font-size:18px'>Delete Cart <i class='fas fa-shopping-cart'></i></a>
+                  <a class="float-right btn btn-primary" style='font-size:18px'  th:href="@{/makeOrder}">Make Order</i></a>
+                  <a th:href="@{/deleteFromCart}" class="float-right" style='font-size:18px'>Delete Cart <i class='fas fa-shopping-cart'></i></a>
                 </div>
               </div>
             </li>
@@ -87,11 +86,12 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="images/avatargreen.png" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Bernardo Lenny</p>
+                  <p class="profile-name" th:text="${user.name}"></p>
+                  <p class="profile-name" th:text="${user.email}"></p>
                   <p class="designation">DrugDrop Client</p>
                 </div>
               </a>

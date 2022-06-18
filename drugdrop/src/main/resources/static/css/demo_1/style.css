@@ -390,6 +390,7 @@
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease; }
   .sidebar > .nav {
+    position: fixed;
     overflow: hidden;
     flex-wrap: nowrap;
     flex-direction: column; }
@@ -490,7 +491,7 @@
         border: 1px solid rgba(255, 255, 255, 0.11);
         background-color: rgba(255, 255, 255, 0.1);
         color: #fff;
-        padding: 15px 25px; }
+        padding: 35px 35px; }
         .sidebar > .nav .nav-item.nav-profile .nav-link .profile-image {
           margin-right: 15px;
           position: relative; }

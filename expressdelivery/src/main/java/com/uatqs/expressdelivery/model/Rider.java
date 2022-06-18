@@ -1,50 +1,73 @@
 package com.uatqs.expressdelivery.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "Rider")
 public class Rider {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     
-    @Column(name = "first_name")
-    private String first_name;
-
-    @Column(name = "last_name")
-    private String last_name;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "phone_number")
     private int phone_number;
 
+    @Column(name = "age")
+    private int age;
+
     @Column(name = "email")
     private String email;
+
+    @Column(name="password")
+    private String password;
 
     @Column(name = "available")
     private boolean available;
 
     @Column(name = "ratings")
     @ElementCollection
-    private List<Integer> ratings;
+    public List<Integer> ratings = new ArrayList<Integer>();
 
-    @OneToMany(mappedBy = "rider")
+    @Column(name = "ratingsAverage")
+    public Double ratingsAverage;
+
+    @OneToMany(mappedBy = "rider",cascade = CascadeType.MERGE )
     @JsonIgnore
     private List<Order> orders;
     
-    public Rider(String first_name, String last_name, int phone_number, String email, boolean available) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Rider(String name, int age, int phone_number, String email, boolean available) {
+        this.age = age;
+        this.name = name;
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
     }
 
-    public Rider(String first_name, String last_name, int phone_number, String email, boolean available,
+    
+    public Rider(String name, int phone_number, int age, String email, @NotBlank String password) {
+        this.name = name;
+        this.phone_number = phone_number;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+
+
+
+    public Rider(String name, int phone_number, String email, boolean available,
             List<Integer> ratings, List<Order> orders) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
         this.phone_number = phone_number;
         this.email = email;
         this.available = available;
@@ -52,20 +75,33 @@ public class Rider {
         this.orders = orders;
     }
 
-    public String getFirst_name() {
-            return first_name;
-        }
+    
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public Rider() {
     }
 
-    public String getLast_name() {
-        return last_name;
+    public long getId() {
+        return id;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getPhone_number() {
@@ -101,11 +137,35 @@ public class Rider {
         this.ratings = ratings;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrders() {
+        return orders.get(8);
     }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+
+    public void setRatingsAverage(Double ratingsAverage) {
+        this.ratingsAverage = ratingsAverage;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public Double getRatingsAverage() {
+        return ratingsAverage;
+    }
+
+    
+
+
 }

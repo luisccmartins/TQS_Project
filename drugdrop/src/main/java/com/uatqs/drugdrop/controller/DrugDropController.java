@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.ObjectFactory;
 import javax.servlet.http.HttpSession;  
 import org.springframework.stereotype.Controller;
@@ -26,12 +29,14 @@ import com.uatqs.drugdrop.model.User;
 import com.uatqs.drugdrop.repository.DrugRepository;
 import com.uatqs.drugdrop.repository.LoginInputRepository;
 import com.uatqs.drugdrop.repository.OrderProductsRepository;
+import com.uatqs.drugdrop.repository.OrderRepository;
 import com.uatqs.drugdrop.repository.StoreRepository;
 import com.uatqs.drugdrop.repository.UserRepository;
 
 import com.uatqs.drugdrop.service.DrugService;
 import com.uatqs.drugdrop.service.LoginInputService;
 import com.uatqs.drugdrop.service.OrderProductsService;
+import com.uatqs.drugdrop.service.OrderService;
 import com.uatqs.drugdrop.service.StoreService;
 import com.uatqs.drugdrop.service.UserService;
 
@@ -43,6 +48,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -79,6 +85,19 @@ public class DrugDropController {
 
   @Autowired
   private LoginInputService loginInputService;
+
+  @Autowired
+  private OrderRepository orderRepository;
+
+  @Autowired
+  private OrderService orderService;
+
+
+  @Bean
+public RestTemplate restTemplate() {
+    RestTemplate restTemplate = new RestTemplate();
+    return restTemplate;
+}
 
   // @Autowired
   // private ExpressDeliveryService service;
@@ -231,6 +250,10 @@ public class DrugDropController {
         luisMartins.add(namePrice);
       }
 
+      List<LoginInput> login = new ArrayList<LoginInput>();
+      login = loginInputRepository.findAll();
+      User user = userService.getUserByEmail(login.get(0).getEmail());
+      model.addAttribute("user", user);
 
       model.addAttribute("OrderProductsList", luisMartins);
 
@@ -245,6 +268,9 @@ public class DrugDropController {
       Integer store_logIn = storeService.getStoreByEmail(email).getId();
       Store stores = storeRepository.findById(store_logIn);
       Set<Drug> druglist = stores.getDruglist();
+
+      Store store = storeService.getStoreByEmail(login.get(0).getEmail());
+      model.addAttribute("store", store);
     
       model.addAttribute("DrugsList", druglist);
       return "storeIndex";
@@ -300,6 +326,15 @@ public class DrugDropController {
     return "userProfile";
   }
 
+  @GetMapping("/storeProfile")
+  public String getStoreProfile(Model model) {
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    Store store = storeService.getStoreByEmail(login.get(0).getEmail());
+    model.addAttribute("store", store);
+    return "storeProfile";
+  }
+
   @GetMapping("/logout")
   public String logout(Model model) throws SQLException, ClassNotFoundException {
     List<LoginInput> login = new ArrayList<LoginInput>();
@@ -341,18 +376,6 @@ public class DrugDropController {
     OrderProducts orderProducts = new OrderProducts(order_id, id);
 
     orderProductsRepository.save(orderProducts);
-
-    /*String myDriver = "com.mysql.jdbc.Driver";
-    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
-    Class.forName(myDriver);
-    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
-      
-    Statement st = conn.createStatement();
-    st.executeUpdate(" DELETE FROM stores_drugs WHERE drugs_id="+ id);
-
-    conn.close();
-    drugRepository.deleteById(id);*/
-    System.out.println(id);
     return "redirect:/userIndex";
   }
 
@@ -370,4 +393,73 @@ public class DrugDropController {
     orderProductsRepository.deleteAll();
     return "redirect:/userIndex";
   }
+
+  @GetMapping("/myOrders")
+  public String getOrders( Model model) {
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    User user = userService.getUserByEmail(login.get(0).getEmail());
+    model.addAttribute("user", user);
+
+    List<Order> orders = new ArrayList<Order>();
+    List<Order> ordersToSend = new ArrayList<Order>();
+
+    //orders = orderRepository.findByUser_Id(user.getId());
+
+    orders = orderRepository.findAll();
+    for (Order order : orders){
+      if (order.getUser_id()==user.getId()){
+        ordersToSend.add(order);
+      }
+    }
+
+    model.addAttribute("Orders", ordersToSend);
+    model.addAttribute("NumberOrders", ordersToSend.size());
+
+    return "myOrders";
+  }
+
+  @GetMapping("/makeOrder")
+  public String makeOrder() throws SQLException, ClassNotFoundException{
+    List<LoginInput> login = new ArrayList<LoginInput>();
+    login = loginInputRepository.findAll();
+    User user = userService.getUserByEmail(login.get(0).getEmail());
+    int userId = user.getId();
+
+    String description = "";
+    Double totalPrice = 0.0;
+    //LinkedHashMap<String,Double> namePrice = new LinkedHashMap<String,Double>();
+    for (OrderProducts product : orderProductsRepository.findAll()){
+      long drugId = product.getDrug_id();
+      Drug drug2add = drugService.getDrugById(drugId);
+      String name = drug2add.getName();
+      Double price = drug2add.getPrice();
+      //namePrice.put(name, price);
+      description = description + "[ " + name + " ]";
+      totalPrice += price;
+
+    }
+
+    Order order = new Order(description,totalPrice,"CREATED",userId);
+    orderRepository.save(order);
+
+    String myDriver = "com.mysql.jdbc.Driver";
+    String myUrl = "jdbc:mysql://localhost:3306/drugdrop";
+    Class.forName(myDriver);
+    Connection conn = DriverManager.getConnection(myUrl, "drugdrop", "drugdrop");
+      
+    Statement st = conn.createStatement();
+    st.executeUpdate(" DELETE FROM order_products");
+
+    conn.close();
+    orderProductsRepository.deleteAll();
+    connectionToExpressDelivery(order.getId(), user);
+    return "redirect:/myOrders";
+  }
+
+  private void connectionToExpressDelivery(Integer order_id, User user){
+    Map<String, Object> request = Map.of("store", 3,"client_phone_number", 91789877,"description", "Universidade de Aveiro","destination", "Aveiro, Santa Joana");
+
+    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
+}
 }
