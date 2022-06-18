@@ -195,7 +195,7 @@ public class ExpressDeliveryService {
         return "Status of Order Changed";
     }
 
-    public Integer createDelivery(int store, int client_phone_number, String description, String destination) {
+    public Integer createOrder(int store, int client_phone_number, String description, String destination) {
         Order order;
         order = orderRepository.save( new Order(store,description,client_phone_number,destination));
         return order.getId();

@@ -79,7 +79,7 @@ public class ExpressDeliveryAPIController {
         int client_phone_number = (Integer) request.get("client_phone_number");
         String description = (String) request.get("description");
         String destination = (String) request.get("destination");
-        return service.createDelivery(store, client_phone_number, description, destination);
+        return service.createOrder(store, client_phone_number, description, destination);
     }
     
 }

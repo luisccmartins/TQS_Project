@@ -29,7 +29,6 @@ public class Rider {
     private String email;
 
     @Column(name="password")
-    @NotBlank
     private String password;
 
     @Column(name = "available")
