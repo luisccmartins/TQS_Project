@@ -390,6 +390,7 @@
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease; }
   .sidebar > .nav {
+    position: fixed;
     overflow: hidden;
     flex-wrap: nowrap;
     flex-direction: column; }

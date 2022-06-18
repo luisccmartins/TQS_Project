@@ -458,7 +458,7 @@ public RestTemplate restTemplate() {
   }
 
   private void connectionToExpressDelivery(Integer order_id, User user){
-    Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", "Universidade de Aveiro","destination", user.getAddress());
+    Map<String, Object> request = Map.of("store", 3,"client_phone_number", 91789877,"description", "Universidade de Aveiro","destination", "Aveiro, Santa Joana");
 
     ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
 }

@@ -82,6 +82,7 @@ public class Order {
         this.description = description;
         this.client_phone_number = client_phone_number;
         this.destination = destination;
+        this.state = "CREATED";
     }
 
 

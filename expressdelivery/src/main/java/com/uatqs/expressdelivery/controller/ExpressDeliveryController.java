@@ -85,7 +85,7 @@ public class ExpressDeliveryController {
   @GetMapping("/dashboard")
     public String getDashboard( Model model) {
       List<Rider> estafetas = new ArrayList<Rider>();
-      List<Order> orders = service.getAllCompletedOrders();
+      List<Order> orders = service.getAllDeliveredOrders();
       for (Order order : orders){
         model.addAttribute("order", order);
       }
@@ -94,7 +94,7 @@ public class ExpressDeliveryController {
         System.out.println(service.getAverageRatingsPerRider(rider));
       }
       estafetas = riderRepository.findAll();
-      model.addAttribute("rider", service.getRidersByOrder(orders));
+      //model.addAttribute("rider", service.getRidersByOrder(orders));
       model.addAttribute("RidersList", estafetas);
       model.addAttribute("deliveriesPerDay", service.getNumberDeliveriesPerDay());
       model.addAttribute("averageRating", service.getAverageRatingsRiders());
@@ -131,9 +131,16 @@ public class ExpressDeliveryController {
 
   @GetMapping("/deliveries")
   public String getDeliveries(Model model){
-    List<Order> orders = service.getAllCompletedOrders();
-    model.addAttribute("totalOrders", orders);
-    model.addAttribute("riderName", service.getRidersByOrder(orders));
+
+    List<Order> CREATEDorders = service.getAllCreatedOrders();
+    List<Order> PICKEDUPorders = service.getAllPickedUpOrders();
+    List<Order> DELIVEREDorders = service.getAllDeliveredOrders();
+
+    model.addAttribute("CREATEDorders", CREATEDorders);
+    model.addAttribute("PICKEDUPorders", PICKEDUPorders);
+    model.addAttribute("DELIVEREDorders", DELIVEREDorders);
+
+    //model.addAttribute("riderName", service.getRidersByOrder(orders));
     return "Estatisticas";
   }
 

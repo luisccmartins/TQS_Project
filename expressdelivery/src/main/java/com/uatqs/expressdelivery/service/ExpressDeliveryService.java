@@ -58,8 +58,8 @@ public class ExpressDeliveryService {
         return orderRepository.findByState("PICKED UP"); 
     }
 
-    public List<Order> getAllCompletedOrders() {
-        return orderRepository.findByState("COMPLETED");
+    public List<Order> getAllDeliveredOrders() {
+        return orderRepository.findByState("DELIVERED");
     }
 
     public Map<Integer, String> getRidersByOrder(List<Order> orders){
@@ -82,7 +82,7 @@ public class ExpressDeliveryService {
 
     public Double getAverageRatingsRiders(){
         double ratings = 0.0;
-        List<Order> orders = orderRepository.findByState("COMPLETED");
+        List<Order> orders = orderRepository.findByState("DELIVERED");
         for(Order order : orders){
             ratings += order.getRating();
         }
@@ -94,7 +94,7 @@ public class ExpressDeliveryService {
 
     public Double getAverageRatingsPerRider(Rider rider){
         double ratings = 0.0;
-        List<Order> orders = orderRepository.findByStateAndRider("COMPLETED", rider.getId());
+        List<Order> orders = orderRepository.findByStateAndRider("DELIVERED", rider.getId());
         for(Order order : orders){
             ratings += order.getRating();
         }
@@ -106,7 +106,7 @@ public class ExpressDeliveryService {
 
     public int getNumberDeliveriesPerDay(){
         long currentTime = System.currentTimeMillis();
-        return orderRepository.findByStateAndTimestampBetween("COMPLETED", new Timestamp(currentTime - 86400000), new Timestamp(currentTime)).size();
+        return orderRepository.findByStateAndTimestampBetween("DELIVERED", new Timestamp(currentTime - 86400000), new Timestamp(currentTime)).size();
     }
 
     public Rider createNewRider(String name, int phone_number, int age, String email, String password) {
@@ -151,10 +151,10 @@ public class ExpressDeliveryService {
     public String acceptOrderRider(Integer order_id, Rider rider_id) throws Exception {
         Order order = orderRepository.findById(order_id);
         order.setRider(rider_id);
-        order.setState("ACCEPTED");
+        order.setState("PICKED UP");
         orderRepository.save(order);
-        updateDeliveryStatus("accepted",order.getStore().getId(),order_id);
-        return "Rider has accepted the order";
+        updateDeliveryStatus("PICKED UP",order.getStore().getId(),order_id);
+        return "Rider has picked up the order";
 
     }
 
@@ -163,7 +163,7 @@ public class ExpressDeliveryService {
         Rider rider = riderRepository.findRiderById(rider_id);
         order.setState(state);
 
-        if(state.equals("COMPLETED")){
+        if(state.equals("DELIVERED")){
             long currentTime = System.currentTimeMillis();
             long days = TimeUnit.DAYS.toMillis(Calendar.DAY_OF_MONTH - 1L);
             long months = TimeUnit.HOURS.toMillis(Calendar.HOUR_OF_DAY);
@@ -173,7 +173,7 @@ public class ExpressDeliveryService {
             rating = (r.nextInt(11));           //give a random rating from 0 to 10
             order.setRating(rating);            //add to order
 
-            List<Order> monthlyOrders = orderRepository.findByStateAndTimestampBetween("COMPLETED", new Timestamp(currentTime - days - months), new Timestamp(currentTime));    //talvez alterar para todas as encomendas e não só as deste mês
+            List<Order> monthlyOrders = orderRepository.findByStateAndTimestampBetween("DELIVERED", new Timestamp(currentTime - days - months), new Timestamp(currentTime));    //talvez alterar para todas as encomendas e não só as deste mês
             int counter = 0;
             for(Order orderMonthly : monthlyOrders){
                 Order thisorder = orderRepository.findById(orderMonthly.getId());
