@@ -17,6 +17,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import javax.servlet.http.HttpSession;  
 import org.springframework.stereotype.Controller;
 import com.uatqs.expressdelivery.model.Rider;
+import com.uatqs.expressdelivery.repository.AdminRepository;
 import com.uatqs.expressdelivery.repository.RiderRepository;
 
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class ExpressDeliveryController {
     public String getDashboard( Model model) {
       List<Rider> estafetas = new ArrayList<Rider>();
       List<Order> orders = service.getAllDeliveredOrders();
+
       for (Order order : orders){
         model.addAttribute("order", order);
       }
@@ -94,10 +96,17 @@ public class ExpressDeliveryController {
         System.out.println(service.getAverageRatingsPerRider(rider));
       }
       estafetas = riderRepository.findAll();
-      //model.addAttribute("rider", service.getRidersByOrder(orders));
+
+      model.addAttribute("ordersTotal", service.getAllOrders().size());
+      model.addAttribute("ordersCREATED", service.getAllCreatedOrders().size());
+      model.addAttribute("ordersPICKEDUP", service.getAllPickedUpOrders().size());
+      model.addAttribute("ordersDELIVERED", service.getAllDeliveredOrders().size());
+
       model.addAttribute("RidersList", estafetas);
+      
       model.addAttribute("deliveriesPerDay", service.getNumberDeliveriesPerDay());
-      model.addAttribute("averageRating", service.getAverageRatingsRiders());
+      model.addAttribute("averageRatingRiders", service.getAverageRatingsRiders());
+
       return "EstafetasPerformance";
     }
 

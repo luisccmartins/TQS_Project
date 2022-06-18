@@ -53,8 +53,8 @@
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Tiago Carteiro</p>
-                  <p class="designation">Admin</p>
+                  <p class="profile-name">Admin</p>
+                  <p class="designation">Administrator Control Panel</p>
                 </div>
               </a>
             </li>
@@ -79,7 +79,7 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-md-6 grid-margin stretch-card">
+              <div class="col-md-5 col-5 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <span class="h4">Deliveries Statistics</span>
@@ -102,14 +102,56 @@
                               <span class="h8" th:text="${deliveriesPerDay}"></span>
                             </div>
                             <div class="col-sm-3">
-                              <span class="h8" th:text="${averageRating}"></span>
+                              <span class="h8" th:text="${averageRatingRiders}"></span>
                           </div>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 grid-margin stretch-card">
+              <div class="col-md-7 col-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <span class="h4">Orders Statistics</span>
+                    <br>
+                    <table class="table">
+                      <thead>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Number of Total Orders</b></span>
+                          </div>
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Number of CREATED Orders</b></span>
+                          </div>
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Number of PICKED UP Orders</b></span>
+                          </div>
+                          <div class="col-sm-3">
+                            <span class="h7"><b>Number of DELIVERED Orders</b></span>
+                          </div>
+                        </div>
+                      </thead>
+                      <tbody>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${ordersTotal}"></span>
+                            </div>
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${ordersCREATED}"></span>
+                            </div>
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${ordersPICKEDUP}"></span>
+                            </div>
+                            <div class="col-sm-3">
+                              <span class="h8" th:text="${ordersDELIVERED}"></span>
+                          </div>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <span class="h4">Performance</span>
@@ -127,12 +169,6 @@
                             <span class="h7"><b>Ratings</b></span>
                           </div>
                           <div class="col-sm-2">
-                            <span class="h7"><b>Distance</b></span>
-                          </div>
-                          <div class="col-sm-2">
-                            <span class="h7"><b>Balance</b></span>
-                          </div>
-                          <div class="col-sm-2">
                             <span class="h7"><b>Available</b></span>
                           </div>
                         </div>
@@ -148,13 +184,7 @@
                               <span class="h8" th:text="${Estafeta.name}"></span>
                             </div>
                             <div class="col-sm-2">
-                              <span class="h8" th:text="${averageRatingPerRider}"></span> 
-                            </div>
-                            <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>         <!-- criar algo que indique distâncias -->
-                            </div>
-                            <div class="col-sm-2">
-                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span>         <!-- criar algo que indique saldo -->
+                              <span class="h8" th:text="${Estafeta.ratingsAverage}"></span> 
                             </div>
                             <div class="col-sm-2">
                               <span class="h8" th:text="${Estafeta.available}"></span>

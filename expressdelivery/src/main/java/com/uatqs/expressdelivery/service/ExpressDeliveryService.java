@@ -50,6 +50,10 @@ public class ExpressDeliveryService {
         return adminRepository.findByEmail(email);
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
     public List<Order> getAllCreatedOrders() {
         return orderRepository.findByState("CREATED"); 
     }
@@ -82,6 +86,16 @@ public class ExpressDeliveryService {
 
     public Double getAverageRatingsRiders(){
         double ratings = 0.0;
+        List<Rider> riders = riderRepository.findAll();
+        if (riders.size()==0){
+            return 0.0;
+        }
+        for (Rider rider : riders){
+            ratings += rider.getRatingsAverage();
+        }
+        ratings = ratings/riders.size();
+        return ratings;
+        /*
         List<Order> orders = orderRepository.findByState("DELIVERED");
         for(Order order : orders){
             ratings += order.getRating();
@@ -90,6 +104,7 @@ public class ExpressDeliveryService {
             return ratings / orders.size();
         else
             return 0.0;
+        */
     }
 
     public Double getAverageRatingsPerRider(Rider rider){
