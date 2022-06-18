@@ -27,7 +27,10 @@ public class Store {
         this.address = address;
     }
 
-    
+    public Store(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Store() {
     }
