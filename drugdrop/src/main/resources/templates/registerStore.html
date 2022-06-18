@@ -16,18 +16,18 @@
             <a style="height: 100px; width: 100px; text-align: center;" >Register as Store</a>
             <div class="container">
                 <label class="label"><b>Name</b></label>
-                <input th:field="*{name}" type="text" class="form-control" placeholder="Name">
+                <input id="name" th:field="*{name}" type="text" class="form-control" placeholder="Name">
 
                 <label class="label"><b>Address</b></label>
-                <input th:field="*{address}" type="text" class="form-control" placeholder="Address">
+                <input id="address" th:field="*{address}" type="text" class="form-control" placeholder="Address">
 
                 <label class="label"><b>Email</b></label>
-                <input th:field="*{email}" type="text" class="form-control" placeholder="Email">
+                <input id="email" th:field="*{email}" type="text" class="form-control" placeholder="Email">
 
                 <label class="label"><b>Password</b></label>
-                <input th:field="*{password}" type="text" class="form-control" placeholder="Password">
+                <input id="password" th:field="*{password}" type="text" class="form-control" placeholder="Password">
             
-                <button type="submit">Register Store</button>
+                <button id="registerStore" type="submit">Register Store</button>
             </div>
         </form>
         <a th:href="@{/}">Already have an account? Login</a>
