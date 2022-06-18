@@ -14,15 +14,15 @@
             </div>
             <div class="container">
                 <label class="label"><b>Name</b></label>
-                <input th:field="*{name}" type="text" class="form-control" placeholder="Name">
+                <input id="name" th:field="*{name}" type="text" class="form-control" placeholder="Name">
 
                 <label class="label"><b>Description</b></label>
-                <input th:field="*{description}" type="text" class="form-control" placeholder="Descripton">
+                <input id="description" th:field="*{description}" type="text" class="form-control" placeholder="Descripton">
 
                 <label class="label"><b>Price</b></label>
-                <input th:field="*{price}" type="text" class="form-control" placeholder="Price">
+                <input id="price" th:field="*{price}" type="text" class="form-control" placeholder="Price">
             
-                <button type="submit">Add Drug</button>
+                <button id="addDrug" type="submit">Add Drug</button>
             </div>
         </form>
     </div>

@@ -62,7 +62,7 @@
             <li class="nav-item">
               <a class="nav-link" th:href="@{/storeDrugs}">
                 <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Drugs Provided</span>
+                <span id="drugsprovided" class="menu-title">Drugs Provided</span>
               </a>
             </li>
             <li class="nav-item">
@@ -87,7 +87,7 @@
                       <div class="card-header card-header-primary">
                         <h4 class="card-title ">Drugs Provided to DrugDrop</h4>
                         <form action="#"  th:action="@{/addDrug}" method="GET">
-                          <button class="float-right" type="submit">Add New Drug</button>
+                          <button id="addDrug" class="float-right" type="submit">Add New Drug</button>
                         </form>
                       </div>
                       <div class="card-body">
@@ -100,7 +100,7 @@
                             </thead>
                             <tbody th:each="drug : ${DrugsList}">
                             <tr>
-                              <td th:text="${drug.name}"></td>
+                              <td id="drugName" th:text="${drug.name}"></td>
                               <td th:text="${drug.description}"></td>
                               <td th:text="${drug.price}"></td>
                               <td>

@@ -43,24 +43,21 @@ public class StepDefinitionsMakeOrder {
     }
     @When("I head to the {string} box")
     public void i_head_to_the_box(String string) {
-        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("name"));
 
     }
-    @When("I click on the Add To Basket button")
-    public void i_clck_on_the_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-
+    @When("I click on the Add To Cart button")
+    public void i_clck_on_the_button() {
+        driver.findElement(By.id("addToCart")).click();
     }
 
-    @When("I click on the Basket button")
-    public void i_clck_on_the_Basketbutton(String string) {
-        // Write code here that turns the phrase above into concrete actions
-
+    @When("I clck on the Basket button")
+    public void i_clck_on_the_basket_button() {
+        driver.findElement(By.id("CartDropdown")).click();
     }
 
     @Then("I click on the Make Order button to finalize the order")
-    public void i_click_on_the_MakeOrderbutton(String string) {
-        // Write code here that turns the phrase above into concrete actions
-
+    public void i_click_on_the_MakeOrderbutton() {
+        driver.findElement(By.id("makeOrder")).click();
     }
 }

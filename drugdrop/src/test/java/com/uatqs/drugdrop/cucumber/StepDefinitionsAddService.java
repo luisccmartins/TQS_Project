@@ -3,6 +3,7 @@ package com.uatqs.drugdrop.cucumber;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.uatqs.drugdrop.repository.UserRepository;
@@ -79,40 +80,45 @@ public class StepDefinitionsAddService {
 
     }
 
-    @Then("I should see my name {string} on the side bar")
-    public void i_should_see_my_name_on_the_side_bar(String string) {
-        driver.findElement(By.id("storeNameSideBar")).getText();
+    @Then("I should see be redirected to {string}")
+    public void i_should_see_be_redirected_to(String url) {
+        driver.get(url);
     }
 
     @When("I click on the Login button")
     public void i_click_on_the_login_button() {
         driver.findElement(By.id("loginSubmit")).click();
     }
+
+    @When("I should see be redirected back to {string}")
+    public void i_should_see_be_redirected_toPage(String url) {
+        driver.get(url);
+    }
+
+    @When("I set the Drugs's Name as {string}")
+    public void i_set_the_drugs_s_name_as(String string) {
+        driver.findElement(By.id("drugsprovided")).getText();
+        //driver.findElement(By.name("name")).sendKeys(string);
+    }
+    @When("I set the Drug's Description as {string}")
+    public void i_set_the_drug_s_description_as(String string) {
+        driver.findElement(By.name("description")).click();
+        driver.findElement(By.name("description")).sendKeys(string);
+    }
+    @When("I set the Drug's Price as {string}")
+    public void i_set_the_drug_s_price_as(String string) {
+        driver.findElement(By.name("price")).click();
+        driver.findElement(By.name("price")).sendKeys(string);
+    }
+
     @When("I click on the Add Drug button")
     public void i_click_on_the_add_drug_button() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
 
-
-    @When("I set the Drugs's Name as {string}")
-    public void i_set_the_drugs_s_name_as(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I set the Drug's Description as {string}")
-    public void i_set_the_drug_s_description_as(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I set the Drug's Price as {string}")
-    public void i_set_the_drug_s_price_as(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
     @Then("I should see {string} on the table of the provided drugs")
     public void i_should_see_on_the_table_of_the_provided_drugs(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        driver.findElement(By.name("drugName")).getText();
     }
 }
