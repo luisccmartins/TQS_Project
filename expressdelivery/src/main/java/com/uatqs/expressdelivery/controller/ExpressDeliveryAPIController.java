@@ -41,8 +41,9 @@ public class ExpressDeliveryAPIController {
 
     @PostMapping("/rider/login")
     public Rider loginRider(@RequestBody Map<String, Object> requestBody){
-        String email = (String) requestBody.get("email");
-        String password = (String) requestBody.get("password");
+        LinkedHashMap map = (LinkedHashMap) requestBody.get("nameValuePairs");
+        String email = (String) map.get("email");
+        String password = (String) map.get("password");
         if (!service.riderHasAccount(email, password)){
             return null;
         }else{

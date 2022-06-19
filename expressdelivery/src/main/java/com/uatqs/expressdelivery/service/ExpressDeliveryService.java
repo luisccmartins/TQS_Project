@@ -140,11 +140,15 @@ public class ExpressDeliveryService {
 
     public boolean riderHasAccount(String email, String password){
         Rider rider = riderRepository.findByEmail(email);
+        if (rider==null){
+            return false;
+        }
         if (rider.getEmail().equals(email) && rider.getPassword().equals(password)){
             return true;
         }else{
             return false;
         }
+
     }
 
     public Integer addOrder(String state, Store store, Address address, Integer phone_number, Timestamp timestamp) {
