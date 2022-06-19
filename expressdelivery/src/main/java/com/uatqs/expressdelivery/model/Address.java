@@ -29,6 +29,13 @@ public class Address {
         this.order = order;
     }
 
+    public Address(String street, String postalCode, String city, String country) {
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.country = country;
+    }
+
 
     public Address() {
     }

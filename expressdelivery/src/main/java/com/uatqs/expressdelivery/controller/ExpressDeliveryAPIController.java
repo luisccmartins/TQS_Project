@@ -1,6 +1,7 @@
 package com.uatqs.expressdelivery.controller;
 
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.uatqs.expressdelivery.model.Address;
 import com.uatqs.expressdelivery.model.Order;
 import com.uatqs.expressdelivery.model.Rider;
@@ -28,11 +30,12 @@ public class ExpressDeliveryAPIController {
 
     @PostMapping("/rider/signup")
     public Rider createRiderAccount(@RequestBody Map<String, Object> requestBody){
-        String name = (String) requestBody.get("name");
-        Integer phone_number = (Integer) requestBody.get("phone_number");
-        Integer age = (Integer) requestBody.get("age");
-        String email = (String) requestBody.get("email");
-        String password = (String) requestBody.get("password");
+        LinkedHashMap map = (LinkedHashMap) requestBody.get("nameValuePairs");
+        String name = (String) map.get("name");
+        Integer phone_number = (Integer) map.get("phone_number");
+        Integer age = (Integer) map.get("age");
+        String email = (String) map.get("email");
+        String password = (String) map.get("password");
         return service.createNewRider(name, phone_number, age, email, password);
     }
 

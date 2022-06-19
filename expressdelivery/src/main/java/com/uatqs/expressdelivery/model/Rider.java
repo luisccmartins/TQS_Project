@@ -60,6 +60,8 @@ public class Rider {
         this.age = age;
         this.email = email;
         this.password = password;
+        this.ratingsAverage = 0.0;
+        this.available = false;
     }
 
 

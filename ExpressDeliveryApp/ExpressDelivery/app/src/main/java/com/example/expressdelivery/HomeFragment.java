@@ -14,7 +14,11 @@ import android.widget.Toast;
 
 import com.example.expressdelivery.Controller.AppController;
 import com.example.expressdelivery.Model.Order;
+import com.example.expressdelivery.Model.Rider;
 import com.example.expressdelivery.Service.AppService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -99,21 +103,51 @@ public class HomeFragment extends Fragment {
         recyclerView1.setAdapter(myAdapterNew);
         recyclerView2.setAdapter(myAdapterInProgress);
 
+
+
         AppService retrofitService = new AppService();
-        AppController appApi = retrofitService.getRetrofit().create(AppController.class);
+        AppController connection = retrofitService.getConnection();
 
-        appApi.getOrders()
-                .enqueue(new Callback<List<Order>>() {
-                    @Override
-                    public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                        Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onFailure(Call<List<Order>> call, Throwable t) {
-                        Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("name","ICO");
+            jsonObject.put("age",12);
+            jsonObject.put("phone_number",911888222);
+            jsonObject.put("email","ico@ua.pt");
+            jsonObject.put("password","ico");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println("JSON:" + jsonObject.toString());
+        connection.riderSignup(jsonObject).enqueue(new Callback<Rider>() {
+            @Override
+            public void onResponse(Call<Rider> call, Response<Rider> response) {
+                Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Rider> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //AppController appApi = retrofitService.getRetrofit().create(AppController.class);
+
+        /*Call<List<Order>> call = connection.getOrders();
+        call.enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                System.out.println("RESPOSTA:" + response.body().toString());
+                Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         return view;
     }
