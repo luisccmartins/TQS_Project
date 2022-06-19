@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        AppService retrofitService = new AppService();
+        /*AppService retrofitService = new AppService();
         AppController connection = retrofitService.getConnection();
 
 
