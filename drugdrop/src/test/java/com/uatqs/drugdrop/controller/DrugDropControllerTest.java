@@ -15,11 +15,13 @@ import com.uatqs.drugdrop.model.User;
 import com.uatqs.drugdrop.repository.DrugRepository;
 import com.uatqs.drugdrop.repository.LoginInputRepository;
 import com.uatqs.drugdrop.repository.OrderProductsRepository;
+import com.uatqs.drugdrop.repository.OrderRepository;
 import com.uatqs.drugdrop.repository.StoreRepository;
 import com.uatqs.drugdrop.repository.UserRepository;
 import com.uatqs.drugdrop.service.DrugService;
 import com.uatqs.drugdrop.service.LoginInputService;
 import com.uatqs.drugdrop.service.OrderProductsService;
+import com.uatqs.drugdrop.service.OrderService;
 import com.uatqs.drugdrop.service.StoreService;
 import com.uatqs.drugdrop.service.UserService;
 
@@ -61,6 +63,12 @@ public class DrugDropControllerTest {
 
     @MockBean
     private OrderProductsService orderProductsService;
+
+    @MockBean
+    private OrderRepository orderRepository;
+
+    @MockBean
+    private OrderService orderService;
 
     @Autowired
     private MockMvc mvc;

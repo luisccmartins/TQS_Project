@@ -87,7 +87,7 @@
                       <div class="card-header card-header-primary">
                         <h4 class="card-title ">Drugs Provided to DrugDrop</h4>
                         <form action="#"  th:action="@{/addDrug}" method="GET">
-                          <button id="addDrug" class="float-right" type="submit">Add New Drug</button>
+                          <button name="addDrug" class="float-right" type="submit">Add New Drug</button>
                         </form>
                       </div>
                       <div class="card-body">
@@ -99,7 +99,7 @@
                             <th>Price</th>
                             </thead>
                             <tbody th:each="drug : ${DrugsList}">
-                            <tr>
+                            <tr class="drugs">
                               <td id="drugName" th:text="${drug.name}"></td>
                               <td th:text="${drug.description}"></td>
                               <td th:text="${drug.price}"></td>

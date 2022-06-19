@@ -286,7 +286,9 @@ public RestTemplate restTemplate() {
   public String addNewDrug(@ModelAttribute Drug inputDrug, Model model) throws ClassNotFoundException, SQLException {
     List<LoginInput> login = new ArrayList<LoginInput>();
     login = loginInputRepository.findAll();
+    System.out.println(login);
     String email = login.get(0).getEmail();
+    System.out.println(email);
     Integer store_logIn = storeService.getStoreByEmail(email).getId();
 
     String name = inputDrug.getName();
@@ -458,8 +460,11 @@ public RestTemplate restTemplate() {
   }
 
   private void connectionToExpressDelivery(Integer order_id, User user){
-    Map<String, Object> request = Map.of("store", 3,"client_phone_number", 91789877,"description", "Universidade de Aveiro","destination", "Aveiro, Santa Joana");
+    List<Order> orders = orderRepository.findAll();
+    Order correctOrder = orders.get(order_id -1);
 
-    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
+    Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", correctOrder.getDescription(),"destination", user.getAddress());
+
+    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9011/api/order", request, Integer.class);
 }
 }

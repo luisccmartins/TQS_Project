@@ -22,6 +22,7 @@ public class Order {
     @Column(name = "user_id")
     private int user_id;
 
+
     public Order(String description, double price, String state) {
         this.state = state;
         this.description = description;

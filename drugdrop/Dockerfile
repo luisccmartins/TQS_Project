@@ -1,6 +1,6 @@
-FROM maven:3.8.4-openjdk-17
+FROM openjdk:11
+COPY ./target/drugdrop-0.0.1-SNAPSHOT.jar drugdrop.jar
 
-WORKDIR /drugdrop
-COPY . .
+EXPOSE 8000
 
-CMD mvn spring-boot:run
+CMD ["java", "-jar", "drugdrop.jar"]

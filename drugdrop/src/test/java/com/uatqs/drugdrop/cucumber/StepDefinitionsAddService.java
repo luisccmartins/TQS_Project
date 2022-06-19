@@ -10,6 +10,8 @@ import com.uatqs.drugdrop.repository.UserRepository;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class StepDefinitionsAddService {
     
@@ -95,10 +97,15 @@ public class StepDefinitionsAddService {
         driver.get(url);
     }
 
+    @When("I click on the Add Drug button")
+    public void i_click_on_the_add_drug_button() {
+        driver.findElement(By.name("addDrug")).click();
+    }
+
     @When("I set the Drugs's Name as {string}")
     public void i_set_the_drugs_s_name_as(String string) {
-        driver.findElement(By.id("drugsprovided")).getText();
-        //driver.findElement(By.name("name")).sendKeys(string);
+        driver.findElement(By.name("name")).click();
+        driver.findElement(By.name("name")).sendKeys(string);
     }
     @When("I set the Drug's Description as {string}")
     public void i_set_the_drug_s_description_as(String string) {
@@ -111,14 +118,13 @@ public class StepDefinitionsAddService {
         driver.findElement(By.name("price")).sendKeys(string);
     }
 
-    @When("I click on the Add Drug button")
-    public void i_click_on_the_add_drug_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @When("I click on the Add New Drug button")
+    public void i_click_on_the_addNew_drug_button() {
+        driver.findElement(By.id("addDrug")).click();
     }
 
     @Then("I should see {string} on the table of the provided drugs")
     public void i_should_see_on_the_table_of_the_provided_drugs(String string) {
-        driver.findElement(By.name("drugName")).getText();
+        driver.findElement(By.id("drugName")).getText();
     }
 }
