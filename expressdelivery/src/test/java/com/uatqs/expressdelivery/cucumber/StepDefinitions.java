@@ -25,7 +25,7 @@ public class StepDefinitions {
     }
     @When("I set the Email as {string}")
     public void i_set_the_email_as(String email) {
-
+        webDriver.findElement(By.id("email")).sendKeys(email);
     }
     @When("I set the Password as {string}")
     public void i_set_the_password_as(String password) {
@@ -36,20 +36,21 @@ public class StepDefinitions {
         webDriver.findElement(By.id("loginSubmit")).click();
     }
 
-    @When("I click on the {string} button on the side bar")
-    public void i_click_on_the_button_on_the_side_bar(String dashboard) {
-        webDriver.findElement(By.linkText("Riders Performance")).click();
-    }
-
-    @Then("I should see the message {string}")
-    public void i_should_see_the_message(String string) {
-        assertThat(webDriver.findElement(By.xpath(".//div[@class='navbar-menu-wrapper d-flex align-items-center']/form[@class='ml-auto search-form d-none d-md-block']/div[@class='form-group']")).getText(), containsString(string));
+    @When("I should be redirected back to {string}")
+    public void i_should_be_redirectedback_to(String string) {
+        webDriver.get(string);
     }
 
     @Then("I should see a table with the names of the riders, such as {string}")
     public void i_should_see_a_table_with_the_names_of_the_riders_such_as(String rider) {
-        assertThat(webDriver.findElement(By.xpath("/html/body/div[2]/div/div/div/div/div[1]/div/div/div[2]/div[2]/span")).getText()).isEqualTo(rider);
+        assertThat(webDriver.findElement(By.id("ridername")).getText()).isEqualTo(rider);
     }
+    @Then("I should be redirected to {string}")
+    public void i_should_be_redirected_to(String string) {
+        webDriver.get(string);
+    }
+    
+
 
     @After()
     public void closeBrowser() {
