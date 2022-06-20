@@ -1,6 +1,7 @@
 package com.uatqs.expressdelivery.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,8 +64,23 @@ public class ExpressDeliveryAPIController {
     }
 
     @GetMapping("/rider/orders")
+    public List<Order> getAllOrders(){
+        return service.getAllOrders();
+    }
+
+    @GetMapping("/rider/orders/created")
     public List<Order> getCreatedOrders(){
         return service.getAllCreatedOrders();
+    }
+
+    @GetMapping("/rider/orders/pickedup")
+    public List<Order> getPickedupOrders(){
+        return service.getAllPickedUpOrders();
+    }
+
+    @GetMapping("/rider/orders/delivered")
+    public List<Order> getDeliveredOrders(){
+        return service.getAllDeliveredOrders();
     }
 
     @PutMapping("/rider/orders/{order_id}/{rider_id}")

@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -20,10 +22,12 @@ public class Order {
 
     @JoinColumn(name = "rider")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Rider rider;
 
     @JoinColumn(name = "store")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Store store;
 
     @Column(name="store_id")
@@ -31,6 +35,7 @@ public class Order {
 
     @JoinColumn(name = "address")
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Address address;
 
     @CreationTimestamp
@@ -46,6 +51,7 @@ public class Order {
     private int rating;
 
     @Column(name="timestamp")
+    @JsonIgnore
     private Timestamp timestamp;
 
     @Column(name = "destination")
