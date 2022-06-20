@@ -59,7 +59,7 @@ public class ExpressDeliveryService {
     }
 
     public List<Order> getAllPickedUpOrders() {
-        return orderRepository.findByState("PICKED UP"); 
+        return orderRepository.findByState("PICKEDUP"); 
     }
 
     public List<Order> getAllDeliveredOrders() {
@@ -159,7 +159,7 @@ public class ExpressDeliveryService {
     }
 
     private void updateDeliveryStatus(String state, int order_id) throws Exception {
-        URL url = new URL("/order/" + order_id + "/state/" + state);
+        URL url = new URL("http://localhost:9014/order/" + order_id + "/state/" + state);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.getInputStream().close();
@@ -168,9 +168,9 @@ public class ExpressDeliveryService {
     public String acceptOrderRider(Integer order_id, Rider rider_id) throws Exception {
         Order order = orderRepository.findById(order_id);
         order.setRider(rider_id);
-        order.setState("PICKED UP");
+        order.setState("PICKEDUP");
         orderRepository.save(order);
-        updateDeliveryStatus("PICKED UP",order_id);
+        updateDeliveryStatus("PICKEDUP",order_id);
         return "Rider has picked up the order";
 
     }

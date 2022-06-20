@@ -42,7 +42,7 @@ public class NewOrderActivity extends AppCompatActivity {
         orderPhoneNumberTV.setText(orderPhoneNumber);
 
         Button buttonAccept = findViewById(R.id.buttonAccept);
-        String state = "PICKED UP";
+        String state = "PICKEDUP";
 
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
