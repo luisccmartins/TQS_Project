@@ -465,6 +465,6 @@ public RestTemplate restTemplate() {
 
     Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", correctOrder.getDescription(),"destination", user.getAddress());
 
-    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9011/api/order", request, Integer.class);
+    ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
 }
 }

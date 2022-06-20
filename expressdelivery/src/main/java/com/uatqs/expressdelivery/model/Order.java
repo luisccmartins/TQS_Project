@@ -25,18 +25,8 @@ public class Order {
     @JsonIgnore
     private Rider rider;
 
-    @JoinColumn(name = "store")
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Store store;
-
     @Column(name="store_id")
     private Integer store_id;
-
-    @JoinColumn(name = "address")
-    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Address address;
 
     @CreationTimestamp
     private Date date;
@@ -57,13 +47,11 @@ public class Order {
     @Column(name = "destination")
     private String destination;
 
-    public Order(int id, String state, Rider rider, Store store, Address address, Date date, String description,
+    public Order(int id, String state, Rider rider, Date date, String description,
             int client_phone_number, int rating, Timestamp timestamp) {
         this.id = id;
         this.state = state;
         this.rider = rider;
-        this.store = store;
-        this.address = address;
         this.date = date;
         this.description = description;
         this.client_phone_number = client_phone_number;
@@ -72,10 +60,8 @@ public class Order {
     }
 
     
-    public Order(String state, Store store, Address address, int client_phone_number, Timestamp timestamp) {
+    public Order(String state, int client_phone_number, Timestamp timestamp) {
         this.state = state;
-        this.store = store;
-        this.address = address;
         this.client_phone_number = client_phone_number;
         this.timestamp = timestamp;
     }
@@ -121,7 +107,7 @@ public class Order {
         this.rider = rider;
     }
 
-    public Store getStore() {
+    /*public Store getStore() {
         return store;
     }
 
@@ -143,7 +129,7 @@ public class Order {
 
     public String getAddressName(){
         return address.getStreet();
-    }
+    }*/
 
     public Date getDate() {
         return date;

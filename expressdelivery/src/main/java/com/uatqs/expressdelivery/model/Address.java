@@ -17,8 +17,8 @@ public class Address {
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private Store store;
 
-    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
-    private Order order;
+    //@OneToOne(mappedBy = "address", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
+    //private Order order;
 
     public Address(String street, String postalCode, String city, String country, Store store, Order order) {
         this.street = street;
@@ -26,7 +26,7 @@ public class Address {
         this.city = city;
         this.country = country;
         this.store = store;
-        this.order = order;
+        //this.order = order;
     }
 
     public Address(String street, String postalCode, String city, String country) {
@@ -80,13 +80,13 @@ public class Address {
         this.store = store;
     }
 
-    public Order getOrder() {
+    /*public Order getOrder() {
         return order;
     }
 
     public void setOrder(Order order) {
         this.order = order;
-    }
+    }*/
     
     
 }

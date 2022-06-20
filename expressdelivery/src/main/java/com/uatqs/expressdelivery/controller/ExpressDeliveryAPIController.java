@@ -53,15 +53,16 @@ public class ExpressDeliveryAPIController {
         
     }
 
-    @PostMapping("/addOrder")
+    /*@PostMapping("/addOrder")
     public Integer addOrder(@RequestBody Map<String, Object> requestBody){
-        String state = "CREATED";
-        Store store = (Store) requestBody.get("store");
-        Address address = (Address) requestBody.get("address");
-        Integer client_telephone = (Integer) requestBody.get("client_telephone");
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return service.addOrder(state,store, address, client_telephone, timestamp);
-    }
+        //String state = "CREATED";
+        //Store store = (Store) requestBody.get("store");
+        //Address address = (Address) requestBody.get("address");
+        Integer store_id = (Integer) requestBody.get("store_id");
+        Integer client_telephone = (Integer) requestBody.get("client_phone_number");
+        //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return service.addOrder(store_id, description, client_telephone, destination);
+    }*/
 
     @GetMapping("/rider/orders")
     public List<Order> getAllOrders(){
@@ -88,9 +89,9 @@ public class ExpressDeliveryAPIController {
        return service.acceptOrderRider(order_id,rider_id);
     }
 
-    @PutMapping("/rider/orders/update/{order_id}/{rider_id}/{state}")
-    public String riderUpdateOrderStatus(@PathVariable Integer order_id, @PathVariable Integer rider_id, @PathVariable String state) throws Exception{
-        return service.riderUpdateOrderState(order_id,rider_id, state);
+    @PutMapping("/rider/orders/update/{order_id}/{rider_email}/{state}")
+    public String riderUpdateOrderStatus(@PathVariable Integer order_id, @PathVariable String rider_email, @PathVariable String state) throws Exception{
+        return service.riderUpdateOrderState(order_id,rider_email, state);
     }
 
     @PostMapping("/order")

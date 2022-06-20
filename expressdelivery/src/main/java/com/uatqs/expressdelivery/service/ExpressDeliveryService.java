@@ -151,17 +151,15 @@ public class ExpressDeliveryService {
 
     }
 
-    public Integer addOrder(String state, Store store, Address address, Integer phone_number, Timestamp timestamp) {
+    public Integer addOrder(String state, Integer phone_number, Timestamp timestamp) {
         Order order;
-        Order order2 = new Order("CREATED", store, address, phone_number, timestamp);
+        Order order2 = new Order("CREATED", phone_number, timestamp);
         order = orderRepository.save(order2);
         return order.getId();
     }
 
-    private void updateDeliveryStatus(String state, int store_id, int order_id) throws Exception {
-        Store store = storeRepository.findById(store_id);
-        String address = "http://" + store.getAddress();
-        URL url = new URL(address + "/order/" + order_id + "/state/" + state);
+    private void updateDeliveryStatus(String state, int order_id) throws Exception {
+        URL url = new URL("/order/" + order_id + "/state/" + state);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.getInputStream().close();
@@ -172,9 +170,18 @@ public class ExpressDeliveryService {
         order.setRider(rider_id);
         order.setState("PICKED UP");
         orderRepository.save(order);
-        updateDeliveryStatus("PICKED UP",order.getStore().getId(),order_id);
+        updateDeliveryStatus("PICKED UP",order_id);
         return "Rider has picked up the order";
 
+    }
+
+    public String riderUpdateOrderState(Integer order_id, String rider_email, String state) throws Exception {
+        Order order = orderRepository.findById(order_id);
+        Rider rider = riderRepository.findByEmail(rider_email);
+        order.setState(state);
+        orderRepository.save(order);
+        updateDeliveryStatus(state,order_id);
+        return "Status of Order Changed";
     }
 
     public String riderUpdateOrderState(Integer order_id, Integer rider_id, String state) throws Exception {
@@ -210,7 +217,7 @@ public class ExpressDeliveryService {
             }
         }
         orderRepository.save(order);
-        updateDeliveryStatus(state,order.getStore().getId(),order_id);
+        updateDeliveryStatus(state,order_id);
         return "Status of Order Changed";
     }
 
