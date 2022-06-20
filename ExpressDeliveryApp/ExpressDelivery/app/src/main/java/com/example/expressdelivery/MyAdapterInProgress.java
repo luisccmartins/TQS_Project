@@ -9,17 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class MyAdapterInProgress extends RecyclerView.Adapter<MyAdapterInProgress.MyViewHolder> {
 
     private RecyclerViewClickListener listener;
     Context context;
-    String data1[];
-    String data2[];
+    List<Integer> arrayId;
+    List<String> arrayDescription;
 
-    public  MyAdapterInProgress(Context ct, String array1[], String array2[], RecyclerViewClickListener listener){
+    public  MyAdapterInProgress(Context ct, List<Integer> arrayId, List<String> arrayDescription, RecyclerViewClickListener listener){
         this.context = ct;
-        this.data1 = array1;
-        this.data2 = array2;
+        this.arrayId = arrayId;
+        this.arrayDescription = arrayDescription;
         this.listener = listener;
     }
 
@@ -33,13 +35,13 @@ public class MyAdapterInProgress extends RecyclerView.Adapter<MyAdapterInProgres
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textViewId.setText(data1[position]);
-        holder.textViewDescription.setText(data2[position]);
+        holder.textViewId.setText(arrayId.get(position).toString());
+        holder.textViewDescription.setText(arrayDescription.get(position).toString());
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return arrayId.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

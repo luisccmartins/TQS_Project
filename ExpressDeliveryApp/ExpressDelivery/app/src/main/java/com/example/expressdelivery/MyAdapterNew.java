@@ -1,6 +1,7 @@
 package com.example.expressdelivery;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+import java.util.Locale;
+
 public class MyAdapterNew extends RecyclerView.Adapter<MyAdapterNew.MyViewHolder> {
 
     private RecyclerViewClickListener listener;
     Context context;
-    String data1[];
-    String data2[];
+    List<Integer> arrayId;
+    List<String> arrayDescription;
 
-    public  MyAdapterNew(Context ct, String array1[], String array2[], RecyclerViewClickListener listener){
+    public  MyAdapterNew(Context ct, List<Integer> arrayId, List<String> arrayDescription, RecyclerViewClickListener listener){
         this.context = ct;
-        this.data1 = array1;
-        this.data2 = array2;
+        this.arrayId = arrayId;
+        this.arrayDescription = arrayDescription;
         this.listener = listener;
     }
 
@@ -33,13 +37,13 @@ public class MyAdapterNew extends RecyclerView.Adapter<MyAdapterNew.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textViewId.setText(data1[position]);
-        holder.textViewDescription.setText(data2[position]);
+        holder.textViewId.setText(arrayId.get(position).toString());
+        holder.textViewDescription.setText(arrayDescription.get(position).toString());
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return arrayId.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

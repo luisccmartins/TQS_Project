@@ -20,6 +20,8 @@ import com.example.expressdelivery.Service.AppService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,8 +45,6 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     RecyclerView recyclerView1;
     RecyclerView recyclerView2;
-    String array1[];
-    String array2[];
     private MyAdapterNew.RecyclerViewClickListener listenerNew;
     private MyAdapterInProgress.RecyclerViewClickListener listenerInProgress;
 
@@ -89,65 +89,65 @@ public class HomeFragment extends Fragment {
         setOnClickListenerNew();
         setOnClickListenerInProgress();
 
-        array1 = getResources().getStringArray(R.array.ids);
-        array2 = getResources().getStringArray(R.array.descriptions);
-        recyclerView1 = view.findViewById(R.id.recyclerViewNewOrders);
-        recyclerView2 = view.findViewById(R.id.recyclerViewInProgress);
+        List<Integer> arrayIdCreated = new ArrayList<Integer>();
+        List<String> arrayDescriptionCreated = new ArrayList<String>();
 
-        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        List<Integer> arrayIdPickedup = new ArrayList<Integer>();
+        List<String> arrayDescriptionPickedup = new ArrayList<String>();
 
-        MyAdapterNew myAdapterNew = new MyAdapterNew(getContext(),array1,array2,listenerNew);
-        MyAdapterInProgress myAdapterInProgress = new MyAdapterInProgress(getContext(),array1,array2,listenerInProgress);
-
-        recyclerView1.setAdapter(myAdapterNew);
-        recyclerView2.setAdapter(myAdapterInProgress);
-
-
-
-        /*AppService retrofitService = new AppService();
+        AppService retrofitService = new AppService();
         AppController connection = retrofitService.getConnection();
 
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("name","ICO");
-            jsonObject.put("age",12);
-            jsonObject.put("phone_number",911888222);
-            jsonObject.put("email","ico@ua.pt");
-            jsonObject.put("password","ico");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        System.out.println("JSON:" + jsonObject.toString());
-        connection.riderSignup(jsonObject).enqueue(new Callback<Rider>() {
-            @Override
-            public void onResponse(Call<Rider> call, Response<Rider> response) {
-                Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Rider> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        //AppController appApi = retrofitService.getRetrofit().create(AppController.class);
-
-        /*Call<List<Order>> call = connection.getOrders();
-        call.enqueue(new Callback<List<Order>>() {
+        connection.getCreatedOrders().enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                System.out.println("RESPOSTA:" + response.body().toString());
-                Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                for (Order order : response.body()){
+                    arrayIdCreated.add(order.getStore_id());
+                    arrayDescriptionCreated.add(order.getDescription());
+                }
+                MyAdapterNew myAdapterData = new MyAdapterNew(getContext(),arrayIdCreated,arrayDescriptionCreated,listenerNew);
+                recyclerView1.setAdapter(myAdapterData);
+                recyclerView1.getAdapter().notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<List<Order>> call, Throwable t) {
                 Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+
+        connection.getPickedupOrders().enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                for (Order order : response.body()){
+                    arrayIdPickedup.add(order.getStore_id());
+                    arrayDescriptionPickedup.add(order.getDescription());
+                }
+                MyAdapterNew myAdapterData = new MyAdapterNew(getContext(),arrayIdPickedup,arrayDescriptionPickedup,listenerNew);
+                recyclerView2.setAdapter(myAdapterData);
+                recyclerView2.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        recyclerView1 = view.findViewById(R.id.recyclerViewNewOrders);
+        recyclerView2 = view.findViewById(R.id.recyclerViewInProgress);
+
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        MyAdapterNew myAdapterNew = new MyAdapterNew(getContext(),arrayIdCreated,arrayDescriptionCreated,listenerNew);
+        MyAdapterInProgress myAdapterInProgress = new MyAdapterInProgress(getContext(),arrayIdPickedup,arrayDescriptionPickedup,listenerInProgress);
+
+        recyclerView1.setAdapter(myAdapterNew);
+        recyclerView2.setAdapter(myAdapterInProgress);
 
         return view;
     }

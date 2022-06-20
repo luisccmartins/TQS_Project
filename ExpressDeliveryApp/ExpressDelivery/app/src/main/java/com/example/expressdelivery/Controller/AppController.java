@@ -23,6 +23,15 @@ public interface AppController {
     @GET("/api/rider/orders")
     Call<List<Order>> getOrders();
 
+    @GET("/api/rider/orders/created")
+    Call<List<Order>> getCreatedOrders();
+
+    @GET("/api/rider/orders/pickedup")
+    Call<List<Order>> getPickedupOrders();
+
+    @GET("/api/rider/orders/delivered")
+    Call<List<Order>> getDeliveredOrders();
+
     @PUT("/api/rider/orders/{order_id}/{rider_id}")
     Call<String> acceptOrder(@Path("order_id") String order_id,@Path("rider_id") String rider_id);
 

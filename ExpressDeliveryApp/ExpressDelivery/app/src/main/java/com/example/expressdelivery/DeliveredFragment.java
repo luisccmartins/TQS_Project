@@ -10,6 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.expressdelivery.Controller.AppController;
+import com.example.expressdelivery.Model.Order;
+import com.example.expressdelivery.Service.AppService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +39,6 @@ public class DeliveredFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView recyclerView1;
-    String array1[];
-    String array2[];
     private MyAdapterDelivered.RecyclerViewClickListener listener;
 
     public DeliveredFragment() {
@@ -69,14 +79,36 @@ public class DeliveredFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_delivered, container, false);
         setOnClickListenerDelivered();
 
-        array1 = getResources().getStringArray(R.array.ids);
-        array2 = getResources().getStringArray(R.array.descriptions);
+        List<Integer> arrayIdDelivered = new ArrayList<Integer>();
+        List<String> arrayDescriptionDelivered = new ArrayList<String>();
+
+        AppService retrofitService = new AppService();
+        AppController connection = retrofitService.getConnection();
+
+        connection.getDeliveredOrders().enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                for (Order order : response.body()){
+                    arrayIdDelivered.add(order.getStore_id());
+                    arrayDescriptionDelivered.add(order.getDescription());
+                }
+                MyAdapterDelivered myAdapterData = new MyAdapterDelivered(getContext(),arrayIdDelivered,arrayDescriptionDelivered,listener);
+                recyclerView1.setAdapter(myAdapterData);
+                recyclerView1.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView1 = view.findViewById(R.id.recyclerViewDeliveredOrders);
 
         recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MyAdapterDelivered myAdapterDelivered = new MyAdapterDelivered(getContext(),array1,array2, listener);
+        MyAdapterDelivered myAdapterDelivered = new MyAdapterDelivered(getContext(),arrayIdDelivered,arrayDescriptionDelivered, listener);
 
         recyclerView1.setAdapter(myAdapterDelivered);
 
