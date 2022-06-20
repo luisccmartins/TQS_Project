@@ -3,58 +3,65 @@ version: "3.9"
 services:
     expressdelivery:
       depends_on:
-        - dataBaseExpressDelivery
+        dbExpressDelivery:
+          condition: service_healthy
       build: ./expressdelivery
       ports: 
         - "9010:9010"
       links:
-        - dataBaseExpressDelivery
-      restart: always
+        - dbExpressDelivery
+      restart: on-failure
       environment:
-        spring.datasource.url"  : jdbc:mysql://localhost:3306/expressdelivery
+        SPRING_DATASOURCE_URL: jdbc:mysql://dbExpressDelivery:3306/expressdelivery
+        SPRING_DATASOURCE_USERNAME: expressdelivery
+        SPRING_DATASOURCE_PASSWORD: expressdelivery
 
     drugdrop: 
       depends_on:
-        - dataBaseDrugDrop
+        dbDrugDrop:
+          condition: service_healthy
       build: ./drugdrop
       ports: 
         - "9014:9014"
-      restart: always
+      restart: on-failure
       environment:
-        spring.datasource.url  : jdbc:mysql://localhost:3306/drugdrop
-        spring.datasource.username: drugdrop
-        spring.datasource.password: drugdrop
-        spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+        SPRING_DATASOURCE_URL: jdbc:mysql://dbDrugDrop:3306/drugdrop
+        SPRING_DATASOURCE_USERNAME: drugdrop
+        SPRING_DATASOURCE_PASSWORD: drugdrop
 
-    dataBaseExpressDelivery:
-        image: mysql:8.0.29
+    dbExpressDelivery:
+        image: mysql:5.7
         ports: 
-            - 3308:3306
-        command: --default-authentication-plugin=mysql_native_password --secure-file-priv=''
+            - 33062:3306
+        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: expressdelivery
-            MYSQL_USER: root
-            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: expressdelivery
             MYSQL_PASSWORD: expressdelivery
+            MYSQL_ROOT_PASSWORD: root
         volumes:
-             - ./volumes/mysql/db:/var/lib/mysql
-             - ./volumes/mysql/scripts:/docker-entrypoint-initdb.d
-
-        restart: always
-    
-    dataBaseDrugDrop:
-        image: mysql:8.0.29
+            - ./dbExpressDelivery:/var/lib/mysql
+        restart: on-failure
+        healthcheck:
+         test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'expressdelivery', '-pexpressdelivery' ]
+         timeout: 5s
+         retries: 10
+    dbDrugDrop:
+        image: mysql:5.7
         ports: 
-            - 3309:3306
-        command: --default-authentication-plugin=mysql_native_password --secure-file-priv=''
+            - 33061:3306
+        command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: drugdrop
-            MYSQL_USER: root
-            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: drugdrop
+            MYSQL_ROOT_PASSWORD: root
             MYSQL_PASSWORD: drugdrop
         volumes:
-             - ./volumes/mysql/db:/var/lib/mysql
-             - ./volumes/mysql/scripts:/docker-entrypoint-initdb.d
+            - ./dbDrugDrop:/var/lib/mysql
         networks:
             - default
-        restart: always
+        restart: on-failure
+        healthcheck:
+          test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'drugdrop', '-pdrugdrop' ]
+          timeout: 5s
+          retries: 10
