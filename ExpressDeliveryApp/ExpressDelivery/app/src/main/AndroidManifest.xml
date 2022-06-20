@@ -19,9 +19,6 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
             android:name=".DeliveredActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
