@@ -24,6 +24,10 @@ Os estafetas registados no nosso serviço podem definir os seu estado atual, ist
     cd TQSProject/expressdelivery
 
     mvn spring-boot:run
+    
+    cd TQSProject/drugdrop
+    
+    mvn spring-boot:run
 
 ### Chat channel
 
