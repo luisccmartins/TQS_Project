@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.expressdelivery.Model.Order;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -17,13 +19,17 @@ public class MyAdapterNew extends RecyclerView.Adapter<MyAdapterNew.MyViewHolder
 
     private RecyclerViewClickListener listener;
     Context context;
+    List<Order> array;
     List<Integer> arrayId;
     List<String> arrayDescription;
+    String profile;
 
-    public  MyAdapterNew(Context ct, List<Integer> arrayId, List<String> arrayDescription, RecyclerViewClickListener listener){
+    public  MyAdapterNew(Context ct, List<Order> array, List<Integer> arrayId, List<String> arrayDescription, String profile, RecyclerViewClickListener listener){
         this.context = ct;
+        this.array = array;
         this.arrayId = arrayId;
         this.arrayDescription = arrayDescription;
+        this.profile = profile;
         this.listener = listener;
     }
 
@@ -60,12 +66,13 @@ public class MyAdapterNew extends RecyclerView.Adapter<MyAdapterNew.MyViewHolder
 
         @Override
         public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+            listener.onClick(view, getAdapterPosition(),array, profile);
         }
+
     }
 
     public interface RecyclerViewClickListener{
-        void onClick(View view, int position);
+        void onClick(View view, int position, List<Order> orders, String profile);
     }
 
 }

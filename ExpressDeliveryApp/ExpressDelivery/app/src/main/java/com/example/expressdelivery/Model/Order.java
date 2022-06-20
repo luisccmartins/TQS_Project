@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Order {
+    private Integer id;
+
     private Integer store_id;
 
     private String description;
@@ -15,7 +17,8 @@ public class Order {
     private String state;
 
 
-    public Order(int store_id, String description, int client_phone_number, String destination) {
+    public Order(int id, int store_id, String description, int client_phone_number, String destination) {
+        this.id = id;
         this.store_id = store_id;
         this.description = description;
         this.client_phone_number = client_phone_number;
@@ -28,14 +31,14 @@ public class Order {
     }
 
 
-    /*
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }*/
+    }
 
     public String getState() {
         return state;

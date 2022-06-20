@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expressdelivery.Controller.AppController;
@@ -77,6 +78,9 @@ public class DeliveredFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_delivered, container, false);
+
+        List<Order> deliveredOrders = new ArrayList<Order>();
+
         setOnClickListenerDelivered();
 
         List<Integer> arrayIdDelivered = new ArrayList<Integer>();
@@ -85,30 +89,43 @@ public class DeliveredFragment extends Fragment {
         AppService retrofitService = new AppService();
         AppController connection = retrofitService.getConnection();
 
-        connection.getDeliveredOrders().enqueue(new Callback<List<Order>>() {
-            @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
-                for (Order order : response.body()){
-                    arrayIdDelivered.add(order.getStore_id());
-                    arrayDescriptionDelivered.add(order.getDescription());
-                }
-                MyAdapterDelivered myAdapterData = new MyAdapterDelivered(getContext(),arrayIdDelivered,arrayDescriptionDelivered,listener);
-                recyclerView1.setAdapter(myAdapterData);
-                recyclerView1.getAdapter().notifyDataSetChanged();
-            }
+        TextView textViewProfile  = getActivity().findViewById(R.id.textViewProfile);
+        String profile = textViewProfile.getText().toString();
 
-            @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(profile.equals("No Rider logged")){
+            Toast.makeText(getContext(), "You need to loggin to check orders", Toast.LENGTH_SHORT).show();
+        } else {
+            connection.getDeliveredOrders().enqueue(new Callback<List<Order>>() {
+                @Override
+                public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                    //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                    List<Order> deliveredOrders = new ArrayList<Order>();
+                    List<Integer> arrayIdCreated = new ArrayList<Integer>();
+                    List<String> arrayDescriptionCreated = new ArrayList<String>();
+                    for (Order order : response.body()){
+                        deliveredOrders.add(order);
+                        arrayIdDelivered.add(order.getId());
+                        arrayDescriptionDelivered.add(order.getDescription());
+                    }
+                    MyAdapterDelivered myAdapterData = new MyAdapterDelivered(getContext(),deliveredOrders,arrayIdDelivered,arrayDescriptionDelivered,profile,listener);
+                    recyclerView1.setAdapter(myAdapterData);
+                    recyclerView1.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<List<Order>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
 
         recyclerView1 = view.findViewById(R.id.recyclerViewDeliveredOrders);
 
         recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MyAdapterDelivered myAdapterDelivered = new MyAdapterDelivered(getContext(),arrayIdDelivered,arrayDescriptionDelivered, listener);
+        MyAdapterDelivered myAdapterDelivered = new MyAdapterDelivered(getContext(),deliveredOrders,arrayIdDelivered,arrayDescriptionDelivered,profile,listener);
 
         recyclerView1.setAdapter(myAdapterDelivered);
 
@@ -118,8 +135,13 @@ public class DeliveredFragment extends Fragment {
     private void setOnClickListenerDelivered() {
         listener = new MyAdapterDelivered.RecyclerViewClickListener() {
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, int position, List<Order> array, String profile) {
                 Intent intent = new Intent(getContext(),DeliveredActivity.class);
+                intent.putExtra("orderId", String.valueOf(array.get(position).getId()));
+                intent.putExtra("orderDescription", array.get(position).getDescription());
+                intent.putExtra("orderDestination", array.get(position).getDestination());
+                intent.putExtra("orderPhoneNumber", String.valueOf(array.get(position).getClient_phone_number()));
+                intent.putExtra("riderEmail", profile);
                 startActivity(intent);
             }
         };

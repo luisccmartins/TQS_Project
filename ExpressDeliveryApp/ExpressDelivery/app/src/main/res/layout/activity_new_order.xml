@@ -133,7 +133,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/buttonAccept"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -142,15 +142,6 @@
             android:backgroundTint="#4CAF50"
             android:text="@string/accept" />
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_weight="1"
-            android:backgroundTint="#F44336"
-            android:text="@string/reject" />
     </LinearLayout>
 
 </RelativeLayout>

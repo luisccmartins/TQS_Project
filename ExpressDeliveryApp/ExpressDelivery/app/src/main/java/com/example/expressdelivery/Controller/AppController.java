@@ -35,6 +35,6 @@ public interface AppController {
     @PUT("/api/rider/orders/{order_id}/{rider_id}")
     Call<String> acceptOrder(@Path("order_id") String order_id,@Path("rider_id") String rider_id);
 
-    @PUT("/api/rider/orders/update/{order_id}/{rider_id}/{state}")
-    Call<String> updateOrderStatus(@Path("order_id") String order_id,@Path("rider_id") String rider_id,@Path("state") String state);
+    @PUT("/api/rider/orders/update/{order_id}/{rider_email}/{state}")
+    Call<String> updateOrderStatus(@Path("order_id") String order_id,@Path("rider_email") String rider_email,@Path("state") String state);
 }

@@ -14,7 +14,7 @@
 
     <!-- New Order and Finish Order Activities -->
     <string name="orderDetails">Order Details</string>
-    <string name="destiny">Destiny</string>
+    <string name="destiny">Destination</string>
     <string name="contact">Contact</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>

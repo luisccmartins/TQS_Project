@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -101,6 +102,8 @@ public class StatsFragment extends Fragment {
         series.setDrawDataPoints(true);
 
         graphView.addSeries(series);
+
+        Toast.makeText(getContext(), "Statistics ara not working!", Toast.LENGTH_SHORT).show();
 
         return view;
     }

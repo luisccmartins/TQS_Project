@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.expressdelivery.Controller.AppController;
@@ -86,6 +88,9 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        List<Order> createdOrders = new ArrayList<Order>();
+        List<Order> pickedupOrders = new ArrayList<Order>();
+
         setOnClickListenerNew();
         setOnClickListenerInProgress();
 
@@ -98,43 +103,59 @@ public class HomeFragment extends Fragment {
         AppService retrofitService = new AppService();
         AppController connection = retrofitService.getConnection();
 
-        connection.getCreatedOrders().enqueue(new Callback<List<Order>>() {
-            @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
-                for (Order order : response.body()){
-                    arrayIdCreated.add(order.getStore_id());
-                    arrayDescriptionCreated.add(order.getDescription());
+        TextView textViewProfile  = getActivity().findViewById(R.id.textViewProfile);
+        String profile = textViewProfile.getText().toString();
+
+        if(profile.equals("No Rider logged")){
+            Toast.makeText(getContext(), "You need to loggin to check orders", Toast.LENGTH_SHORT).show();
+        } else {
+            connection.getCreatedOrders().enqueue(new Callback<List<Order>>() {
+                @Override
+                public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                    //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                    List<Order> createdOrders = new ArrayList<Order>();
+                    List<Integer> arrayIdCreated = new ArrayList<Integer>();
+                    List<String> arrayDescriptionCreated = new ArrayList<String>();
+                    for (Order order : response.body()){
+                        createdOrders.add(order);
+                        arrayIdCreated.add(order.getId());
+                        arrayDescriptionCreated.add(order.getDescription());
+                    }
+
+                    MyAdapterNew myAdapterData = new MyAdapterNew(getContext(),createdOrders,arrayIdCreated,arrayDescriptionCreated,profile,listenerNew);
+                    recyclerView1.setAdapter(myAdapterData);
+                    recyclerView1.getAdapter().notifyDataSetChanged();
                 }
-                MyAdapterNew myAdapterData = new MyAdapterNew(getContext(),arrayIdCreated,arrayDescriptionCreated,listenerNew);
-                recyclerView1.setAdapter(myAdapterData);
-                recyclerView1.getAdapter().notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        connection.getPickedupOrders().enqueue(new Callback<List<Order>>() {
-            @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
-                for (Order order : response.body()){
-                    arrayIdPickedup.add(order.getStore_id());
-                    arrayDescriptionPickedup.add(order.getDescription());
+                @Override
+                public void onFailure(Call<List<Order>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
                 }
-                MyAdapterNew myAdapterData = new MyAdapterNew(getContext(),arrayIdPickedup,arrayDescriptionPickedup,listenerNew);
-                recyclerView2.setAdapter(myAdapterData);
-                recyclerView2.getAdapter().notifyDataSetChanged();
-            }
+            });
 
-            @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+            connection.getPickedupOrders().enqueue(new Callback<List<Order>>() {
+                @Override
+                public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                    //Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
+                    List<Order> pickedupOrders = new ArrayList<Order>();
+                    List<Integer> arrayIdPickedup = new ArrayList<Integer>();
+                    List<String> arrayDescriptionPickedup = new ArrayList<String>();
+                    for (Order order : response.body()){
+                        pickedupOrders.add(order);
+                        arrayIdPickedup.add(order.getId());
+                        arrayDescriptionPickedup.add(order.getDescription());
+                    }
+                    MyAdapterInProgress myAdapterData = new MyAdapterInProgress(getContext(),pickedupOrders,arrayIdPickedup,arrayDescriptionPickedup,profile,listenerInProgress);
+                    recyclerView2.setAdapter(myAdapterData);
+                    recyclerView2.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<List<Order>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Failed to connect with database!!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         recyclerView1 = view.findViewById(R.id.recyclerViewNewOrders);
         recyclerView2 = view.findViewById(R.id.recyclerViewInProgress);
@@ -143,8 +164,8 @@ public class HomeFragment extends Fragment {
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        MyAdapterNew myAdapterNew = new MyAdapterNew(getContext(),arrayIdCreated,arrayDescriptionCreated,listenerNew);
-        MyAdapterInProgress myAdapterInProgress = new MyAdapterInProgress(getContext(),arrayIdPickedup,arrayDescriptionPickedup,listenerInProgress);
+        MyAdapterNew myAdapterNew = new MyAdapterNew(getContext(),createdOrders,arrayIdCreated,arrayDescriptionCreated,profile,listenerNew);
+        MyAdapterInProgress myAdapterInProgress = new MyAdapterInProgress(getContext(),pickedupOrders,arrayIdPickedup,arrayDescriptionPickedup,profile,listenerInProgress);
 
         recyclerView1.setAdapter(myAdapterNew);
         recyclerView2.setAdapter(myAdapterInProgress);
@@ -155,8 +176,13 @@ public class HomeFragment extends Fragment {
     private void setOnClickListenerNew() {
         listenerNew = new MyAdapterNew.RecyclerViewClickListener() {
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, int position, List<Order> array, String profile) {
                 Intent intent = new Intent(getContext(),NewOrderActivity.class);
+                intent.putExtra("orderId", String.valueOf(array.get(position).getId()));
+                intent.putExtra("orderDescription", array.get(position).getDescription());
+                intent.putExtra("orderDestination", array.get(position).getDestination());
+                intent.putExtra("orderPhoneNumber", String.valueOf(array.get(position).getClient_phone_number()));
+                intent.putExtra("riderEmail", profile);
                 startActivity(intent);
             }
         };
@@ -165,10 +191,16 @@ public class HomeFragment extends Fragment {
     private void setOnClickListenerInProgress() {
         listenerInProgress = new MyAdapterInProgress.RecyclerViewClickListener() {
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, int position, List<Order> array, String profile) {
                 Intent intent = new Intent(getContext(),FinishOrderActivity.class);
+                intent.putExtra("orderId", String.valueOf(array.get(position).getId()));
+                intent.putExtra("orderDescription", array.get(position).getDescription());
+                intent.putExtra("orderDestination", array.get(position).getDestination());
+                intent.putExtra("orderPhoneNumber", String.valueOf(array.get(position).getClient_phone_number()));
+                intent.putExtra("riderEmail", profile);
                 startActivity(intent);
             }
         };
     }
+
 }

@@ -9,19 +9,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.expressdelivery.Model.Order;
+
 import java.util.List;
 
 public class MyAdapterDelivered extends RecyclerView.Adapter<MyAdapterDelivered.MyViewHolder> {
 
     private RecyclerViewClickListener listener;
     Context context;
+    List<Order> array;
     List<Integer> arrayId;
     List<String> arrayDescription;
+    String profile;
 
-    public  MyAdapterDelivered(Context ct, List<Integer> arrayId, List<String> arrayDescription, RecyclerViewClickListener listener){
+    public  MyAdapterDelivered(Context ct, List<Order> array, List<Integer> arrayId, List<String> arrayDescription, String profile, RecyclerViewClickListener listener){
         this.context = ct;
+        this.array = array;
         this.arrayId = arrayId;
         this.arrayDescription = arrayDescription;
+        this.profile = profile;
         this.listener = listener;
     }
 
@@ -58,12 +64,12 @@ public class MyAdapterDelivered extends RecyclerView.Adapter<MyAdapterDelivered.
 
         @Override
         public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+            listener.onClick(view, getAdapterPosition(),array,profile);
         }
     }
 
     public interface RecyclerViewClickListener{
-        void onClick(View view, int position);
+        void onClick(View view, int position, List<Order> array, String profile);
     }
 
 }
