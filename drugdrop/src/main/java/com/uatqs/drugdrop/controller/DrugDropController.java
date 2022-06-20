@@ -11,9 +11,12 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.ObjectFactory;
-import javax.servlet.http.HttpSession;  
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Controller;
 
 import com.uatqs.drugdrop.model.Drug;
@@ -466,5 +469,15 @@ public RestTemplate restTemplate() {
     Map<String, Object> request = Map.of("store", 1,"client_phone_number", user.getPhone_number(),"description", correctOrder.getDescription(),"destination", user.getAddress());
 
     ResponseEntity<Integer> response = restTemplate().postForEntity("http://localhost:9010/api/order", request, Integer.class);
-}
+  }
+
+    @PostMapping("/order/{order_id}/state/{state}")
+    @Transactional
+    public ResponseEntity<Object> updateOrderState(@PathVariable("order_id") Integer id,@PathVariable("state") String state){
+        orderRepository.changeStateOfDelivery(id, state);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+
 }
