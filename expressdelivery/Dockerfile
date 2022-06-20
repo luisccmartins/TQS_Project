@@ -1,5 +1,6 @@
-FROM maven:3.8.4-openjdk-17
+FROM openjdk:11
+COPY ./target/expressdelivery-0.0.1-SNAPSHOT.jar expressdelivery.jar
 
-WORKDIR /expressdelivery
-COPY . /expressdelivery
-RUN mvn clean package -DskipTests
+EXPOSE 9010
+
+CMD ["java", "-jar", "expressdelivery.jar"]
