@@ -20,4 +20,22 @@ public class RiderTest {
         assertEquals("pedroporro@expressdelivery.com", rider1.getEmail());
         assertEquals(false, rider2.isAvailable());
     }
+
+    @Test
+    public void testFindRiderByName(){
+        assertEquals("Pedro Porro", rider1.getName());
+        assertEquals("João Félix", rider2.getName());
+    }
+
+    @Test
+    public void testFindRiderByAge(){
+        assertEquals(22, rider1.getAge());
+        assertEquals(21, rider2.getAge());
+    }
+
+    @Test
+    public void testFindRiderByPhoneNumber(){
+        assertEquals(960970980, rider1.getPhone_number());
+        assertEquals(960970910, rider2.getPhone_number());
+    }
 }

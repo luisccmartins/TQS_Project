@@ -15,7 +15,18 @@ public class AdminTest {
     }
 
     @Test
-    public void testFindAdmin(){
+    public void testFindAdminByEmail(){
         assertEquals("admin@expressdelivery.com", admin.getEmail());
     }
+
+    @Test
+    public void testFindAdminByName(){
+        assertEquals("Admin", admin.getName());
+    }
+
+    @Test
+    public void testFindAdminByPassword(){
+        assertEquals("admin", admin.getEmail());
+    }
+
 }
